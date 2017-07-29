@@ -4,6 +4,7 @@
 var GAME = GAME || {};
 
 GAME.worldRotateZ = 45;
+GAME.worldScale = 1;
 
 $(function() {
 
@@ -38,7 +39,13 @@ $(function() {
 		curDown = false;
 	})
 	.on('wheel', function(e) {
-		console.log(e);	// PROBLEM: no e.deltaY
+		var deltaY = e.deltaY || e.originalEvent.deltaY || 0;
+		console.log("wheel", deltaY);
+		if (deltaY > 0 && GAME.worldScale < 1.7) GAME.worldScale += 0.1;
+		if (deltaY < 0 && GAME.worldScale > 0.3) GAME.worldScale -= 0.1;
+		$("#world").css({
+			transform: "scale("+GAME.worldScale+")"
+		});
 	});
 
 	// Player walks to click:
