@@ -3,7 +3,7 @@
 * https://github.com/boblemarin/Sprite3D.js
 *
 * Copyright (c) 2010 boblemarin emeric@minimal.be http://www.minimal.be
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -12,10 +12,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -30,12 +30,12 @@
 
 var Sprite3D = Sprite3D || {
 
-	
+
 	/********* [PUBLIC STATIC] isSupported() ***********/
 	/*
 	returns: Boolean
-	This method is automatically called when we create the first element, 
-	but you can call it earlier if you want to provide an alternative content 
+	This method is automatically called when we create the first element,
+	but you can call it earlier if you want to provide an alternative content
 	to unsupported browsers.
 	*/
 	isSupported: function(){
@@ -44,26 +44,26 @@ var Sprite3D = Sprite3D || {
 		// return support value
 		return this._isSupported;
 	},
-	
+
 	/********* [PUBLIC STATIC] stage() ***********/
 	/*
 	Creates a root container for your 3D content.
 
-	Usage 1 : 
+	Usage 1 :
 		Sprite3D.stage()
 
 	Creates and returns a new <div> element that is added to the page.
 	The stage is centered, so the position (0,0,0) is in the center of the window.
 	This is the easiest and most common way to start a project
 
-	Usage 2 : 
+	Usage 2 :
 		Sprite3D.stage( document.querySelector("#myContainer") )
 
 	Uses an existing HTML element as root container. The element is only tweaked a bit,
 	adjusting a few transform-related CSS properties, as well as setting the CSS "position"
 	property to "relative" if it is "static".
 	This method gives you more freedom, but more responsabilities :)
-	
+
 	*/
 	stage: function(element) {
 		// init if needed
@@ -95,7 +95,7 @@ var Sprite3D = Sprite3D || {
 		// end fix
 		return c;
 	},
-	
+
 	/********* [PUBLIC STATIC] create() ***********/
 	/*
 	Creates a new Sprite3D element
@@ -103,7 +103,7 @@ var Sprite3D = Sprite3D || {
 	Usage 1 :
 		Sprite3D.create()
 
-		Creates a <div> element and turn it into a 
+		Creates a <div> element and turn it into a
 
 	Usage 2 :
 		Sprite3D.create( document.querySelector("#myElement") )
@@ -112,7 +112,7 @@ var Sprite3D = Sprite3D || {
 		Sprite3D.create( "#id" )
 		Sprite3D.create( "id" )
 
-	Usage 4 : 
+	Usage 4 :
 		Sprite3D.create( ".class" )
 		Sprite3D.create( ".class1 class2" )
 
@@ -120,7 +120,7 @@ var Sprite3D = Sprite3D || {
 	create: function(element){
 		// init Sprite3D if needed
 		if ( !this._isInit ) this._init();
-		
+
 		// create or tweak html element
 		if ( arguments.length === 0 ) {
 			element = document.createElement("div");
@@ -146,13 +146,13 @@ var Sprite3D = Sprite3D || {
 				element[prop] = this._props[prop];
 			}
 		}
-		
+
 		// add private properties
 		element._string = [
-			"translate3d(", 0, "px,", 0, "px,", 0, "px) ", 
-			"rotateX(", 0, "deg) ", 
-			"rotateY(", 0, "deg) ", 
-			"rotateZ(", 0, "deg) ", 
+			"translate3d(", 0, "px,", 0, "px,", 0, "px) ",
+			"rotateX(", 0, "deg) ",
+			"rotateY(", 0, "deg) ",
+			"rotateZ(", 0, "deg) ",
 			"scale3d(", 1, ", ", 1, ", ", 1, ") "
 		];
 		element._positions = [
@@ -163,45 +163,48 @@ var Sprite3D = Sprite3D || {
 		element._ox = 0;
 		element._oy = 0;
 		element._oz = 0;
-		
+
 		// return
 		return element;
 	},
-	
+
 	/********* [PUBLIC STATIC] box() ***********/
 	box: function(width,height,depth,idOrClassName) {
 		// init if needed
 		if ( !this._isInit ) this._init();
-		
+
 		// create container element
 		var box = this.create();
-		
+
 		if ( arguments.length === 1 ) {
 			height = width;
 			depth = width;
-		} else if ( arguments.length === 2 && typeof(arguments[1]) === "string" ) {	
+		} else if ( arguments.length === 2 && typeof(arguments[1]) === "string" ) {
 			this._handleStringArgument(box,arguments[1]);
 			height = width;
 			depth = width;
 		} else if ( idOrClassName && typeof(idOrClassName) === "string" ) {
 			this._handleStringArgument(box,idOrClassName);
 		}
-		
+
 		// add faces
 		var hwidth = width*.5,
 			hheight = height*.5,
 			hdepth = depth*.5;
-			
+
+		// Changed the face names to match world orientation - MN
 		box.appendChild( Sprite3D.create(".front").position( -hwidth, -hheight, hdepth).size(width,height).update() );
 		box.appendChild( Sprite3D.create(".back").position( -hwidth, -hheight, -hdepth).size(width,height).rotationY(180).update() );
+
 		box.appendChild( Sprite3D.create(".left").position( -hwidth-hdepth, -hheight, 0).size(depth,height).rotationY(-90).update() );
 		box.appendChild( Sprite3D.create(".right").position( hwidth-hdepth, -hheight, 0).size(depth,height).rotationY(90).update() );
-		box.appendChild( Sprite3D.create(".bottom").position( -hwidth, hheight-hdepth, 0).size(width,depth).rotationX(-90).update() );
-		box.appendChild( Sprite3D.create(".top").position( -hwidth, -hheight-hdepth, 0).size(width,depth).rotationX(90).update() );
-		
+
+		box.appendChild( Sprite3D.create(".top").position( -hwidth, hheight-hdepth, 0).size(width,depth).rotationX(-90).update() );
+		box.appendChild( Sprite3D.create(".bottom").position( -hwidth, -hheight-hdepth, 0).size(width,depth).rotationX(90).update() );
+
 		return box;
 	},
-	
+
 	/********* [PUBLIC STATIC] prefix() ***********/
 	prefix: function(cssPropertyName) {
 		return Sprite3D._browserPrefix + cssPropertyName;
@@ -213,12 +216,12 @@ var Sprite3D = Sprite3D || {
 	_browserPrefix: "webkit",
 	_transformProperty: "webkitTransform",
 
-	/********* [PRIVATE STATIC] _init() ***********/	
+	/********* [PRIVATE STATIC] _init() ***********/
 	_init: function(){
-		var d = document.createElement("div"), 
+		var d = document.createElement("div"),
 			prefixes = ["", "webkit", "Moz", "O", "ms" ],
 			n = prefixes.length, i;
-			
+
 		Sprite3D._isInit = true;
 		// check for 3D transforms
 		for( i = 0; i < n; i++ ) {
@@ -226,8 +229,8 @@ var Sprite3D = Sprite3D || {
 				Sprite3D._transformProperty = prefixes[i] + "Transform";
 				Sprite3D._isSupported = true;
 				Sprite3D._browserPrefix = prefixes[i];
-				if ( i==2 ) Sprite3D._props.update = Sprite3D._props.updateJoin;
-				//console.log( "Sprite3D found support for 3D transforms using prefix: " + prefixes[i] );
+				if ( i === 2 ) Sprite3D._props.update = Sprite3D._props.updateJoin;
+				console.log( "Sprite3D found support for 3D transforms using prefix: " + prefixes[i] );
 				return true;
 			}
 		}
@@ -236,7 +239,7 @@ var Sprite3D = Sprite3D || {
 		alert("Sorry, but your browser does not support CSS 3D transfroms.");
 		return false;
 	},
-	
+
 	/********* [PRIVATE STATIC] _handleStringArgument() ***********/
 	_handleStringArgument: function( element, str ){
 		switch( str[0] ) {
@@ -251,10 +254,10 @@ var Sprite3D = Sprite3D || {
 				break;
 		}
 	},
-	
+
 	/********* Sprite3D objects properties ***********/
 	_props: {
-		
+
 		  /////////////////////////////////////////////
 		 //////////// Position / absolute ////////////
 		/////////////////////////////////////////////
@@ -288,7 +291,7 @@ var Sprite3D = Sprite3D || {
 			if ( arguments.length >= 3 ) this._string[this._positions[2]] = pz - this._oz;
 			return this;
 		},
-		
+
 		  /////////////////////////////////////////////
 		 //////////// Position / relative ////////////
 		/////////////////////////////////////////////
@@ -298,7 +301,7 @@ var Sprite3D = Sprite3D || {
 			if ( arguments.length >= 3 ) this._string[this._positions[2]] += pz;
 			return this;
 		},
-		
+
 		  /////////////////////////////////////////////
 		 //////////// Rotation / absolute ////////////
 		/////////////////////////////////////////////
@@ -332,7 +335,7 @@ var Sprite3D = Sprite3D || {
 			this._string[this._positions[5]] = rz;
 			return this;
 		},
-		
+
 		  /////////////////////////////////////////////
 		 //////////// Rotation / relative ////////////
 		/////////////////////////////////////////////
@@ -342,7 +345,7 @@ var Sprite3D = Sprite3D || {
 			this._string[this._positions[5]] += rz;
 			return this;
 		},
-		
+
 		  /////////////////////////////////////////////
 		 /////////////////   Scale  //////////////////
 		/////////////////////////////////////////////
@@ -374,7 +377,7 @@ var Sprite3D = Sprite3D || {
 			switch(arguments.length){
 				case 0:
 					return this._string[this._positions[6]];
-				case 1: 
+				case 1:
 					this._string[this._positions[6]] = sx;
 					this._string[this._positions[7]] = sx;
 					this._string[this._positions[8]] = sx;
@@ -392,7 +395,7 @@ var Sprite3D = Sprite3D || {
 			}
 			return this;
 		},
-		
+
 		  /////////////////////////////////////////////
 		 /////////////////  Origin  //////////////////
 		/////////////////////////////////////////////
@@ -431,7 +434,7 @@ var Sprite3D = Sprite3D || {
 			this.style[ Sprite3D._browserPrefix + "TransformOrigin" ] = (Number(tx)?tx+"px":tx) + " " + (Number(ty)?ty+"px":ty);
 			return this;
 		},
-		
+
 		  /////////////////////////////////////////////
 		 ////////////  Transform String  /////////////
 		/////////////////////////////////////////////
@@ -442,7 +445,7 @@ var Sprite3D = Sprite3D || {
 				strings = [],
 				positions = [ 0,0,0, 0,0,0, 0,0,0 ],
 				n = 0;
-				
+
 			for(i;i<numParts;i++){
 				switch( parts[i] ){
 					case "p":
@@ -450,7 +453,7 @@ var Sprite3D = Sprite3D || {
 					case "translate":
 					// todo: use rx ry rz (regPoint) when re-defining transform order
 						n = strings.push( "translate3d(", this._string[this._positions[0]], "px,", this._string[this._positions[1]], "px,", this._string[this._positions[2]], "px) " );
-						positions[0] = n-6;	
+						positions[0] = n-6;
 						positions[1] = n-4;
 						positions[2] = n-2;
 						break;
@@ -475,22 +478,22 @@ var Sprite3D = Sprite3D || {
 					case "s":
 					case "scale":
 						n = strings.push( "scale3d(", this._string[this._positions[6]], ",", this._string[this._positions[7]], ",", this._string[this._positions[8]], ") " );
-						positions[6] = n-6;	
+						positions[6] = n-6;
 						positions[7] = n-4;
 						positions[8] = n-2;
 						break;
 				}
 			}
-			
+
 			this._string = strings;
 			this._positions = positions;
-			
+
 			return this;
 		},
-		
+
 		  /////////////////////////////////////////////
 		 /////////////////  Update  //////////////////
-		/////////////////////////////////////////////	
+		/////////////////////////////////////////////
 		updateJoin : function(){
 			this.style[Sprite3D._transformProperty] = this._string.join("");
 			return this;
@@ -506,19 +509,19 @@ var Sprite3D = Sprite3D || {
 		  /////////////////////////////////////////////
 		 ////////////  Helper Functions //////////////
 		/////////////////////////////////////////////
-	
+
 		//////////// Perspective helper function ////////////
 		perspective : function(value) {
 			switch(arguments.length) {
 				case 0:
 					return this.style[Sprite3D._browserPrefix + "Perspective"];
-		
+
 				case 1:
 					this.style[Sprite3D._browserPrefix + "Perspective"] = (typeof(value)==="string")?value:value+"px";
 					return this;
 			}
 		},
-	
+
 		//////////// CSS helper function ////////////
 		css : function(name, value) {
 			switch(arguments.length) {
@@ -534,8 +537,9 @@ var Sprite3D = Sprite3D || {
 					return this;
 			}
 		},
-		
+
 		//////////// Class names helper functions ////////////
+		// disabling because jQuery's method is more versatile?
 		addClass : function(name) {
 			this.classList.add(name);
 			return this;
@@ -545,7 +549,7 @@ var Sprite3D = Sprite3D || {
 			this.classList.remove(name);
 			return this;
 		},
-		
+
 		//////////// HTML helper function ////////////
 		html : function(value) {
 			if (arguments.length){
@@ -556,14 +560,14 @@ var Sprite3D = Sprite3D || {
 			}
 			return this;
 		},
-		
+
 		//////////// SIZE helper function ////////////
 		size: function(width, height){
 			this.style.width = Number(width)?width+"px":width;
 			this.style.height = Number(height)?height+"px":height;
 			return this;
 		},
-		
+
 		//////////// BIND helper function ////////////
 		bind: function(events){
 			if(typeof(events)==="object"){
@@ -577,7 +581,7 @@ var Sprite3D = Sprite3D || {
 			}
 			return this;
 		},
-		
+
 		//////////// UNBIND helper function ////////////
 		unbind: function(events){
 			if(typeof(events)==="object"){
@@ -589,7 +593,7 @@ var Sprite3D = Sprite3D || {
 			}
 			return this;
 		},
-				
+
 		//////////// Spritesheet helper functions ////////////
 		tileWidth: 0,
 		tileHeight: 0,
@@ -608,6 +612,6 @@ var Sprite3D = Sprite3D || {
 			this[name] = value;
 			return this;
 		}
-		
+
 	}
 };

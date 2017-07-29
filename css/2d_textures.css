@@ -1,0 +1,110 @@
+/* All cubes have this (I guess) */
+.newcube > * {
+    box-shadow: inset 0 0 0 .2em rgba(0,0,0,.1);
+	backface-visibility: hidden; /* for performance */
+}
+
+.floor_room0 > div, .top.floor_room0 {
+	background: url(../img/room0_v2.png) no-repeat !important;
+	background-size: 15em 15em !important;
+}
+
+.floor_room1 > div, .top.floor_room1 {
+	background: url(../img/room1_v1.png) 100% 0 no-repeat !important;
+	background-size: 15em 15em !important;
+}
+
+/* SKINS */
+.hypercube .front, .front.hypercube,
+.hypercube .back, .back.hypercube {
+	background: rgba(255,80,255,0.7);
+}
+.hypercube .top, .top.hypercube,
+.hypercube .bottom, .bottom.hypercube {
+	background: rgba(80,255,255,0.7);
+}
+.hypercube .left, .left.hypercube,
+.hypercube .right, .right.hypercube {
+	background: rgba(255,255,80,0.7);
+}
+
+/* IMAGE SKINS */
+.greybrick,
+.greybrick > div,
+.greybrick:before,
+.greybrick:after {
+	background: url(../img/walls/tiles.png) 0 0;
+	background-size: 24em;	/*TODO: resize tilesheet*/
+	image-rendering: pixelated;
+}
+.redbrick,
+.redbrick > div,
+.redbrick:before,
+.redbrick:after {
+	background: url(../img/walls/tiles.png) -55px 0;
+	background-size: 20em;
+	image-rendering: pixelated;
+}
+.house:after {
+	background: url(../img/little_house.png) -2px -12px;
+	background-size: 115%;
+	image-rendering: pixelated;
+}
+.house:before {
+	background: url(../img/BrickHouse.png) -4px -7px;
+	background-size: 130%;
+	image-rendering: pixelated;
+}
+
+/* COLOUR SKINS */
+.red {background: #f66;}
+.red:after {background: #e55;}
+.red:before {background: #d44;}
+
+.red .top, .top.red,
+.red .bottom, .bottom.red {background: #f66;}
+.front .red, .front.red,
+.red .back, .back.red {background: #e55;}
+.red .left, .left.red,
+.red .right, .right.red {background: #d44;}
+
+.blue {background: #66f;}
+.blue:after {background: #55e;}
+.blue:before {background: #44d;}
+
+.top.blue,
+.bottom.blue {background: #66f;}
+.front.blue,
+.back.blue {background: #55e;}
+.left.blue,
+.right.blue {background: #44d;}
+
+.grey {background: #666;}
+.grey:after {background: #555;}
+.grey:before {background: #444;}
+
+/* All this doubling up is to allow styling the outer container, or an individual face */
+.grey .top, .top.grey,
+.grey .bottom, .bottom.grey {background: #888;}
+.grey .front, .front.grey,
+.grey .back, .back.grey {background: #777;}
+.grey .left, .left.grey,
+.grey .right, .right.grey {background: #666;}
+
+#grass {background: lawngreen;}
+#grass:after {background: limegreen;}
+#grass:before {background: green;}
+
+.grass .top, .top.grass {background: lawngreen url(../img/floor/grass.jpg);}
+.grass .front, .front.grass,
+.grass .back, .back.grass {
+	background-color: limegreen;
+	background: linear-gradient(rgba(0,0,0, 0.5), rgba(0,0,0, 0.5))
+				url(../img/floor/grass.jpg);
+}
+.grass .left, .left.grass,
+.grass .right, .right.grass {
+	background-color: green;
+	background: linear-gradient(rgba(0,0,0, 0.75), rgba(0,0,0, 0.75))
+				url(../img/floor/grass.jpg);
+}

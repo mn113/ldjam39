@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>LD Jam 39 - Team Stupid</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+	<link rel="stylesheet" href="css/2d_sprites.css">
+	<link rel="stylesheet" href="css/2d_textures.css">
+	<link rel="stylesheet" href="css/3d_assets.css">
+	<link rel="stylesheet" href="css/ui.css">
+	<style>
+		#mousexy {
+			top: 0;
+		}
+		#keypress {
+			top: 25px;
+		}
+		#keypress:before {
+			content: 'key ';
+		}
+	</style>
+</head>
+<body>
+	<div id="ui">
+		<div id="mousexy"></div>
+		<div id="keypress"></div>
+	</div>
+	<div id="world">
+		<div id="room">
+			<!--div id="floor" data-z="0"></div-->
+
+			<div class="exit north" style="top:-1em; left:7em">N</div>
+
+			<!-- 1x1 houses -->
+			<div class="cube red" style="top:1em; left:3em"></div>
+			<div class="cube red" style="top:1em; left:5em"></div>
+			<div class="cube red" style="top:1em; left:6em"></div>
+			<div class="cube red" style="top:1em; left:7em"></div>
+
+			<!-- 1x1 houses -->
+			<div class="cube blue" style="top:11em; left:1em">
+				<div class="cube back blue"></div>
+			</div>
+			<div class="cube blue" style="top:11em; left:2em">
+				<div class="cube back blue"></div>
+			</div>
+			<div class="cube blue" style="top:12em; left:2em">
+				<div class="cube back blue"></div>
+			</div>
+			<div class="cube blue" style="top:13em; left:2em">
+				<div class="cube back blue"></div>
+			</div>
+			<div class="cube blue" style="top:12em; left:6em">
+				<div class="cube back blue"></div>
+			</div>
+			<div class="cube blue" style="top:12em; left:7em">
+				<div class="cube back blue"></div>
+			</div>
+
+			<!-- corner houses -->
+			<div class="cube grey" style="top:11em; left:12em">
+				<div class="cube back grey"></div>
+			</div>
+			<div class="cube grey" style="top:14em; left:12em">
+				<div class="cube back grey"></div>
+			</div>
+			<div class="cube grey" style="top:14em; left:13em">
+				<div class="cube back grey"></div>
+			</div>
+			<div class="cube grey" style="top:14em; left:14em">
+				<div class="cube back grey"></div>
+			</div>
+
+			<!-- big house -->
+			<div class="cube doubled grey house" style="top:1em; left:1em">
+				<div class="roof"></div>
+				<div class="roof2"></div>
+				<div class="cube doubled back grey"></div>
+			</div>
+
+			<!-- big house -->
+			<div class="cube doubled grey house" style="top:5em; left:12em">
+				<div class="cube doubled back grey"></div>
+			</div>
+
+			<!-- big house -->
+			<div class="cube doubled grey redbrick" style="top:8em; left:1em">
+				<div class="cube doubled back redbrick"></div>
+			</div>
+
+			<div class="cube car" style="top:10em; left:10em">
+				<div class="cube back car"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+	<script src="js/3rdparty/Sprite3D.js"></script>
+	<script src="js/data.js"></script>
+	<script src="js/worldbuilding.js"></script>
+	<script src="js/room0.js"></script>
+	<script src="js/characters.js"></script>
+	<script src="js/controls.js"></script>
+	<script src="js/ui.js"></script>
+	<script src="js/debugging.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+</body>
+</html>

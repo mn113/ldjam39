@@ -7,20 +7,42 @@
 	<title>LD Jam 39 - Team Stupid</title>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-	<link rel="stylesheet" href="css/2d_assets.css">
+	<link rel="stylesheet" href="css/2d_sprites.css">
 	<link rel="stylesheet" href="css/2d_textures.css">
 	<link rel="stylesheet" href="css/3d_assets.css">
 	<link rel="stylesheet" href="css/ui.css">
-	<link rel="stylesheet" href="css/style.css">
+	<style>
+		#mousexy {
+			top: 0;
+		}
+		#keypress {
+			top: 25px;
+		}
+		#keypress:before {
+			content: 'key ';
+		}
+	</style>
 </head>
 <body>
-	<h1>Insert game here</h1>
-	<div id="world"></div>
+	<div id="ui">
+		<div id="mousexy"></div>
+		<div id="keypress"></div>
+	</div>
+	<div id="world">
+		<div id="room">
+		</div>
+	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
 	<script src="js/3rdparty/Sprite3D.js"></script>
-	<script src="js/game.js"></script>
+	<script src="js/data.js"></script>
+	<script src="js/worldbuilding.js"></script>
+	<script src="js/room1.js"></script>
+	<script src="js/characters.js"></script>
+	<script src="js/controls.js"></script>
+	<script src="js/ui.js"></script>
+	<script src="js/debugging.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </body>
 </html>

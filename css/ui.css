@@ -1,0 +1,14 @@
+.inputFrozen {
+	pointer-events: none;
+}
+
+#pixel {
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border: 1px solid fuchsia;
+}
+
+#ui {
+	position: absolute;
+}

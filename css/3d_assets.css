@@ -1,0 +1,200 @@
+body {
+	overflow: hidden;
+	font-size: 20px;	/* defines 20px = 1em */
+}
+#world {
+	background: #ffd;
+	font-size: 100%;
+	height: calc(100vh - 7em);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 7em;
+}
+#room {
+	border: 1em solid #ccc;
+	border-radius: 0.5em;
+    width: 15em;
+    height: 15em;
+    transform: scale(3) rotateX(60deg) rotateZ(45deg);
+    transform-style: preserve-3d;
+	perspective-origin: 50% 0%;
+	perspective: 1000000px;
+	position: relative;
+}
+#room > * {
+	position: absolute;
+}
+#floor {
+	width: 100%;
+	height: 100%;
+	background: url(../img/room0_v2.png) no-repeat;
+	background-size: 15em 15em;
+}
+.exit {
+	background-color: #aaa;
+	width: 1em;
+	height: 1em;
+	text-align: center;
+}
+.north { transform: rotateZ(0deg);}
+.south { transform: rotateZ(180deg);}
+.west { transform: rotateZ(-90deg); }
+.east { transform: rotateZ(90deg); }
+
+
+/* ITEMS */
+.cube,
+.cube:after,
+.cube:before {
+    box-shadow: inset 0 0 0 .2em rgba(0,0,0,.1);
+    content: '';
+    height: 1em;
+    width: 1em;
+    position: absolute;
+}
+/* Top */
+.cube {
+    transform: translateZ(1em);
+    transform-style: preserve-3d;
+    transition: .25s;
+}
+/* Left face */
+.cube:after {
+    transform: rotateX(-90deg) translateY(1em);
+    transform-origin: 100% 100%;
+}
+/* Right face */
+.cube:before {
+    transform: translateY(3em) rotateX(-90deg) rotateY(90deg) translateX(3em);
+    transform-origin: 100% 0;
+}
+
+.doubled,
+.doubled:before,
+.doubled:after {
+	width: 2em;
+	height: 2em;
+	transform-origin: 50% 50% 50%;
+}
+.doubled {
+	transform: translate3d(0em,0em,2em);
+}
+.doubled:after {
+	transform: translate3d(0em,0em,-2em) rotateX(-90deg);
+}
+.doubled:before {
+	/* Fix image orientation */
+    transform: translate3d(0em,0em,0em) rotateX(-90deg) rotateY(90deg);
+}
+.doubled .back {
+	rotateZ(180deg);
+}
+.back {
+	pointer-events: none;
+}
+.cube .back {
+	transform: rotateZ(180deg);
+}
+.double .back {
+	transform: scaleZ(2) rotateZ(180deg); ;
+}
+.hill {
+
+}
+.flat20 {
+	transform: scaleZ(0.2) translateZ(1em);
+}
+.flat40 {
+	transform: scaleZ(0.4) translateZ(1em);
+}
+.raised2 {
+	transform: translateZ(3em)
+}
+
+.roof,
+.roof:after,
+.roof2,
+.roof2:after {
+	content: '';
+	width: 2em;
+	height: 1.42em;
+	position: absolute;
+    transform-style: preserve-3d;
+	transform-origin: 0 0 0;
+}
+.roof {
+	transform:  rotateX(-45deg) translate3d(0,0,1.42em);
+	background: indianred;
+}
+.roof:after {
+	transform: rotateX(-90deg);
+	background: crimson;
+}
+.roof2 {
+	transform: translate3d(1em,0em,1em) rotateY(-45deg)  rotateZ(90deg);
+	background: firebrick;
+}
+.roof2:after {
+	transform: rotateX(-90deg);
+	background: darkred;
+}
+
+
+.car {
+	transform: scaleZ(0.75) scaleX(0.5) translateZ(1em);	/*TODO: don't scale this, it throws off em positioning */
+}
+.car:before {
+	background: url(../img/camper.png) -1px -2px;
+	background-size: 110% 120%;
+}
+.car, .car:after {
+	background: #cdf;
+}
+.car {
+	animation: 5s driveY linear infinite;
+	animation-delay: 5s;
+}
+.car.back {
+	animation: none;
+}
+@keyframes driveY {
+	from {top: 15rem;}
+	to {top: 0rem;}
+}
+
+
+
+
+.pyramid {
+	position: absolute;
+	transform-style: preserve-3d;
+	transform: translate3d(0,0,3.8em);
+}
+.pyramid .side {
+	position: absolute;
+	top: 0.5em;
+	width: 0;
+	height: 0;
+	border-left: 0.5em solid transparent;
+	border-right: 0.5em solid transparent;
+	border-bottom: 1em solid #ccc;
+	transform-origin: 50% 0%;
+	transform-style: preserve-3d;
+}
+.pyramid .front {
+	transform: rotateX(-90deg) rotateY(0deg) rotateX(-30deg);
+	border-bottom-color: mediumaquamarine;
+}
+.pyramid .right {
+	transform: rotateX(-90deg) rotateY(90deg) rotateX(-30deg);
+	border-bottom-color: lightseagreen;
+}
+.pyramid .back {
+	transform: rotateX(-90deg) rotateY(180deg) rotateX(-30deg);
+	border-bottom-color: mediumaquamarine;
+}
+.pyramid .left {
+	transform: rotateX(-90deg) rotateY(270deg) rotateX(-30deg);
+	border-bottom-color: lightseagreen;
+}

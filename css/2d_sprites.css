@@ -1,0 +1,238 @@
+
+/* MOVABLES */
+.sprite2d {
+	position: absolute;
+	/* untransform sprite: */
+	transform-origin: 50% 100%;
+	transform: rotateZ(-45deg) rotateX(-90deg) translateY(1px) scale(0.7);
+	image-rendering: pixelated;
+}
+.sprite2d.ground {
+
+}
+.sprite2d.upright {
+
+}
+
+#player {
+	position: absolute;
+	width: 20px;
+	height: 25px;
+	/* untransform sprite: */
+	xtransform-origin: 50% 100%;
+	xtransform: rotateZ(-45deg) rotateX(-90deg) translateY(1px) scale(0.7);
+	image-rendering: pixelated;
+	border-bottom: 2px solid black;
+	background-image: url(../img/sprites/spritesheet.png);
+	background-position: -20px 0;
+	pointer-events: none;
+}
+
+#player.right {
+	background-position: -20px -25px;
+}
+#player.back {
+	background-position: -20px -50px;
+}
+#player.left {
+	background-position: -20px -75px;
+}
+#player.flashing {
+	animation: flash 0.8s 5;
+}
+@keyframes flash {
+	0%,100% { opacity: 1; }
+	50%     { opacity: 0.2; }
+}
+#player.walking {
+	animation: walk-front 0.7s steps(1, start) alternate infinite;
+}
+#player.right.walking {
+	animation: walk-right 0.7s steps(1, start) alternate infinite;
+}
+#player.back.walking {
+	animation: walk-back 0.7s steps(1, start) alternate infinite;
+}
+#player.left.walking {
+	animation: walk-left 0.7s steps(1, start) alternate infinite;
+}
+@keyframes walk-front {
+	0%,100% { background-position:   0px 0px; }
+	25%		{ background-position: -20px 0px; }
+	50%		{ background-position: -40px 0px; }
+	75%		{ background-position: -20px 0px; }
+}
+@keyframes walk-right {
+	0%,100% { background-position:   0px -25px; }
+	25%		{ background-position: -20px -25px; }
+	50%		{ background-position: -40px -25px; }
+	75%		{ background-position: -20px -25px; }
+}
+@keyframes walk-back {
+	0%,100% { background-position:   0px -50px; }
+	25%		{ background-position: -20px -50px; }
+	50%		{ background-position: -40px -50px; }
+	75%		{ background-position: -20px -50px; }
+}
+@keyframes walk-left {
+	0%,100% { background-position:   0px -75px; }
+	25%		{ background-position: -20px -75px; }
+	50%		{ background-position: -40px -75px; }
+	75%		{ background-position: -20px -75px; }
+}
+#player.dying {
+	background-position:   -60px -100px;
+	animation: die 1s steps(3, start) 1;	/* 4 frames */
+}
+@keyframes die {
+	0%  { background-position:   0px -100px; }
+	100%	{ background-position: -60px -100px; }	/* 3x20 */
+}
+#player.dead {
+	background-position:   -60px -100px;
+}
+#player.pointing {
+	background-position: -60px -50px;
+}
+#player.shocked {
+	background-position:  -80px -50px;
+	animation: shock 0.7s steps(1, start) alternate 10;
+}
+@keyframes shock {
+	0%,40%,80% { background-position: -80px -50px; }
+	25%,55%,100%  { background-position: -60px -50px; }
+}
+#player.burnt {
+	background-position: -100px -50px;
+	animation: burnfall 1s steps(6, start) 1;	/* 7 frames */
+	animation-delay: 1s;
+}
+@keyframes burnfall {
+	from { background-position: -100px -50px; }
+	to   { background-position: -220px -50px; }	/* 6x20 */
+}
+#player.vomiting {
+	background-position: -140px -125px;
+	animation: vomit 1s steps(7, start) 1;			/* 8 frames */
+}
+@keyframes vomit {
+	from { background-position:    0px -125px; }
+	to   { background-position: -140px -125px; }	/* 7x20 */
+}
+#player.obese1 {
+	background-position: -100px -25px;
+}
+#player.obese2 {
+	background-position: -120px -25px;
+}
+#player.obese3 {
+	background-position: -140px -25px;
+}
+#player.headless {
+	background-position: -80px 0;
+}
+#player > .head {
+	position: absolute;
+	top: 0px;
+	width: 20px;
+	height: 12px;
+	background-image: url(../img/sprites/spritesheet.png);
+	background-position: -100px -1px;
+	display: none;
+}
+#player.headless > .head {
+	display: block;
+	animation: headflip 1s steps(8, start) 1;
+}
+@keyframes headflip {
+	from {
+		top: 0px;
+		transform: rotate(0deg);
+	}
+	50% {
+		top: -20px;
+		transform: rotate(360deg);
+	}
+	to {
+		top: 0px;
+		transform: rotate(720deg);
+	}
+}
+#player.blueface  > .head { display: block; background-position: -100px -13px; }
+#player.redface   > .head { display: block; background-position: -120px -13px; }
+#player.brownface > .head { display: block; background-position: -140px -13px; }
+#player.whiteface > .head { display: block; background-position: -160px -13px; }
+#player.greenface > .head { display: block; background-position: -180px -13px; }
+
+#player.bloody {
+	background-position: -160px -25px;
+}
+#player.frozen {
+	background-position: -60px -25px;
+}
+#ghost {
+	/* is a separate element because both appear at the same time */
+	width: 20px;
+	height: 25px;
+	background-image: url(../img/sprites/spritesheet.png);
+	background-position: -60px -25px;
+	opacity: 30%;
+	/* animation is a simple movement done via js */
+}
+.bloodpool {
+	width: 36px;
+	height: 8px;
+	background-image: url(../img/sprites/spritesheet.png);
+	background-position: 0px -190px;
+	animation: bloodspread 1s steps(5, start) 1;	/* 6 frames */
+}
+@keyframes bloodspread {
+	from { background-position: 0px -150px; }
+	to   { background-position: 0px -190px; }	/* 5*8 */
+}
+.bloodsplat {
+	width: 20px;
+	height: 20px;
+	background-image: url(../img/sprites/spritesheet.png);
+	background-position: -40px -145px;
+}
+.bloodsplat.bs1 { background-position: -40px -150px; }
+.bloodsplat.bs2 { background-position: -60px -150px; }
+.bloodsplat.bs3 { background-position: -40px -170px; }
+.bloodsplat.bs4 { background-position: -60px -170px; }
+.bloodsplat.bs5 { background-position: -40px -190px; }
+.bloodsplat.bs6 { background-position: -60px -190px; }
+
+#player figure {
+	position: absolute;
+	top: -35px;
+	left: -50px;
+	width: 40px;	/* needs to contain all text values without wrapping */
+	height: 17px;
+	text-align: center;
+	font-size: 8px;
+	font-family: Arial;
+	white-space: nowrap;
+	color: white;
+	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+}
+#player figure:before {	/* health bar container */
+	content: '';
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 4px;
+	border: 1px solid white;
+	background: black;
+}
+#player figure:after { /* health bar contents */
+	content: '';
+	position: absolute;
+	left: 2px;
+	bottom: 2px;
+	height: 2px;
+	width: 50%;
+}
+#player figure.percent25:after { width: 25%; background: orange; }
+#player figure.percent50:after { width: 50%; background: yellow; }
+#player figure.percent75:after { width: 75%; background: lawngreen; }
