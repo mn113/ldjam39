@@ -51,6 +51,10 @@ GAME.utils = {
 		// Keep player facing the camera:
 		// TODO: replicate for all sprite2d's
 		GAME.player.face(360 - GAME.worldRotateZ);
+		// Scroll bg:
+		$("body").css({
+			backgroundPosition: (GAME.worldRotateZ % 360) / 3.6 + "% 0"
+		});
 
 		GAME.utils.updateZIndexes();
 	},

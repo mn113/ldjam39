@@ -1,9 +1,12 @@
 body {
+	xbackground: linear-gradient(90deg, rgba(0,255,255,1) 0%, rgba(214,255,179,1) 50%, rgba(0,255,255,1) 100%);
+	background: #d9a7c7; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to top left, #d9a7c7, #fffcdc); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to top left, #d9a7c7, #fffcdc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	overflow: hidden;
 	font-size: 20px;	/* defines 20px = 1em */
 }
 #world {
-	background: #ffd;
 	font-size: 100%;
 	height: calc(100vh - 7em);
 	display: flex;
