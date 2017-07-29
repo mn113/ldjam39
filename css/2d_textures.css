@@ -4,6 +4,7 @@
 	backface-visibility: hidden; /* for performance */
 }
 
+/* FLOORPLANS */
 .floor_room0 > div, .top.floor_room0 {
 	background: url(../img/room0_v2.png) no-repeat !important;
 	background-size: 15em 15em !important;
@@ -31,26 +32,28 @@
 /* IMAGE SKINS */
 .greybrick,
 .greybrick > div,
-.greybrick:before,
-.greybrick:after {
+.xgreybrick:before,
+.xgreybrick:after {
 	background: url(../img/walls/tiles.png) 0 0;
 	background-size: 24em;	/*TODO: resize tilesheet*/
 	image-rendering: pixelated;
 }
 .redbrick,
 .redbrick > div,
-.redbrick:before,
-.redbrick:after {
+.xredbrick:before,
+.xredbrick:after {
 	background: url(../img/walls/tiles.png) -55px 0;
 	background-size: 20em;
 	image-rendering: pixelated;
 }
-.house:after {
+.creamhouse,
+.xhouse:after {
 	background: url(../img/little_house.png) -2px -12px;
 	background-size: 115%;
 	image-rendering: pixelated;
 }
-.house:before {
+.house,
+.xhouse:before {
 	background: url(../img/BrickHouse.png) -4px -7px;
 	background-size: 130%;
 	image-rendering: pixelated;
@@ -58,19 +61,19 @@
 
 /* COLOUR SKINS */
 .red {background: #f66;}
-.red:after {background: #e55;}
-.red:before {background: #d44;}
+.xred:after {background: #e55;}
+.xred:before {background: #d44;}
 
 .red .top, .top.red,
 .red .bottom, .bottom.red {background: #f66;}
-.front .red, .front.red,
+.red .front, .front.red,
 .red .back, .back.red {background: #e55;}
 .red .left, .left.red,
 .red .right, .right.red {background: #d44;}
 
 .blue {background: #66f;}
-.blue:after {background: #55e;}
-.blue:before {background: #44d;}
+.xblue:after {background: #55e;}
+.xblue:before {background: #44d;}
 
 .top.blue,
 .bottom.blue {background: #66f;}
@@ -80,8 +83,8 @@
 .right.blue {background: #44d;}
 
 .grey {background: #666;}
-.grey:after {background: #555;}
-.grey:before {background: #444;}
+.xgrey:after {background: #555;}
+.xgrey:before {background: #444;}
 
 /* All this doubling up is to allow styling the outer container, or an individual face */
 .grey .top, .top.grey,
@@ -91,9 +94,9 @@
 .grey .left, .left.grey,
 .grey .right, .right.grey {background: #666;}
 
-#grass {background: lawngreen;}
-#grass:after {background: limegreen;}
-#grass:before {background: green;}
+.xgrass {background: lawngreen;}
+.xgrass:after {background: limegreen;}
+.xgrass:before {background: green;}
 
 .grass .top, .top.grass {background: lawngreen url(../img/floor/grass.jpg);}
 .grass .front, .front.grass,

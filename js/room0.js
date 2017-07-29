@@ -24,7 +24,7 @@ GAME.room0 = (function() {
 			back: 'grey'
 		}
 	});
-	// Exits:
+
 	g.exits = [
 		new Exit({
 			dimensions: [1, 1, GAME.currentBaseHeight],
@@ -48,29 +48,127 @@ GAME.room0 = (function() {
 			destination: {room:0, exit:1}
 		})
 	];
-	// Example cube
-	g.newcube2x = new Box({
-		dimensions: [2,2,2],
-		point3d: {x:8, y:12},
-		rotationZ: -90,
-		skins: {
-			front: 'redbrick',
-			left: 'red',
-			right: 'greybrick',
-			back: 'grey',
-			top: 'grass'
-		}
-	});
-	g.doublenewcube2x = new Box({
-		dimensions: [2,2,2],
-		point3d: {x:4, y:12},
-		classNames: 'hypercube'
-	});
-	g.tallbox = new Box({
-		dimensions: [0.5, 1, 5],
-		point3d: {x:6.75, y:6.5},
-		classNames: 'hypercube'
-	});
+
+	GAME.currentBoxColour = 'blue';
+	g.houses = [
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:1, y:11}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:2, y:11}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:2, y:12}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:2, y:13}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:6, y:12}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:7, y:12}
+		})
+	];
+
+	GAME.currentBoxColour = 'red';
+	g.houses2 = [
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:3, y:1}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:5, y:1}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:6, y:1}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:7, y:1}
+		}),
+	];
+
+	GAME.currentBoxColour = 'grey';
+	g.cornerhouses = [
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:12, y:11}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:12, y:14}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:13, y:14}
+		}),
+		new Box({
+			dimensions: [1,1,1],
+			point3d: {x:14, y:14}
+		}),
+	];
+
+	GAME.currentBoxColour = 'redbrick';
+	g.redbrickhouses = [
+		new Box({
+			dimensions: [2,2,2],
+			point3d: {x:8, y:12},
+			rotationZ: -90,	// BUG: this has wrong axis
+			skins: {
+				front: 'redbrick',
+				left: 'creamhouse',
+				right: 'greybrick',
+				back: 'grey',
+				top: 'grass'
+			}
+		}),
+		new Box({
+			dimensions: [2,2,2],
+			point3d: {x:4, y:12},
+			classNames: 'creamhouse',
+			skins: {
+				top: 'grey'
+			}
+		})
+	];
+
+	GAME.currentBoxColour = 'house';
+	g.doublehouses = [
+		new Box({
+			dimensions: [2,2,2],
+			point3d: {x:12, y:5},
+			skins: {
+				top: 'grey'
+			}
+		}),
+		new Box({
+			dimensions: [2,2,2],
+			point3d: {x:1, y:8},
+			skins: {
+				top: 'grey'
+			}
+		}),
+		new Box({
+			dimensions: [2,2,2],
+			point3d: {x:1, y:1},
+			classNames: 'grey',
+			skins: {
+				top: 'eavesRoof'
+			}
+		})
+	];
+	$(".eavesRoof")
+		.append($("<div>").addClass("roof"))
+		.append($("<div>").addClass("roof2"));
 
 	GAME.currentBoxColour = "grey";
 	g.fountainborders = [
@@ -162,20 +260,23 @@ GAME.room0 = (function() {
 		new Box({
 			dimensions: [1, 1, 1],
 			point3d: {x:12, y:9, z:4},
+			skins: {
+				top: 'pyramid'
+			}
 		})
 	];
-
-	// Pyramid:
-	g.roof = Sprite3D.create('pyramid1')
-		.move(240,180,116)	// pyramid must sit -0.2em in Z
-		.update();
-	GAME.stage.appendChild(g.roof);
-	$("#pyramid1")
-		.addClass('pyramid')
+	// Pyramid:	// TODO: utility function?
+	$(".pyramid")
 		.append($("<div>").addClass("side left"))
 		.append($("<div>").addClass("side right"))
 		.append($("<div>").addClass("side front"))
 		.append($("<div>").addClass("side back"));
+
+	g.tallbox = new Box({
+		dimensions: [0.5, 1, 5],
+		point3d: {x:6.75, y:6.5},
+		classNames: 'hypercube'
+	});
 
 	// Revealing module pattern
 	return g;

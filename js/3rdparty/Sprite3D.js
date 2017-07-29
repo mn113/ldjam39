@@ -193,11 +193,11 @@ var Sprite3D = Sprite3D || {
 			hdepth = depth*.5;
 
 		// Changed the face names to match world orientation - MN
-		box.appendChild( Sprite3D.create(".front").position( -hwidth, -hheight, hdepth).size(width,height).update() );
-		box.appendChild( Sprite3D.create(".back").position( -hwidth, -hheight, -hdepth).size(width,height).rotationY(180).update() );
+		box.appendChild( Sprite3D.create(".front").position( -hwidth, -hheight, hdepth).size(width,height).rotationZ(180).update() );
+		box.appendChild( Sprite3D.create(".back").position( -hwidth, -hheight, -hdepth).size(width,height).rotationY(180).rotationZ(180).update() );
 
-		box.appendChild( Sprite3D.create(".left").position( -hwidth-hdepth, -hheight, 0).size(depth,height).rotationY(-90).update() );
-		box.appendChild( Sprite3D.create(".right").position( hwidth-hdepth, -hheight, 0).size(depth,height).rotationY(90).update() );
+		box.appendChild( Sprite3D.create(".left").position( -hwidth-hdepth, -hheight, 0).size(depth,height).rotationY(-90).rotationZ(180).update() );
+		box.appendChild( Sprite3D.create(".right").position( hwidth-hdepth, -hheight, 0).size(depth,height).rotationY(90).rotationZ(180).update() );
 
 		box.appendChild( Sprite3D.create(".top").position( -hwidth, hheight-hdepth, 0).size(width,depth).rotationX(-90).update() );
 		box.appendChild( Sprite3D.create(".bottom").position( -hwidth, -hheight-hdepth, 0).size(width,depth).rotationX(90).update() );

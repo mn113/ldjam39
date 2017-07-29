@@ -169,7 +169,6 @@ body {
 .pyramid {
 	position: absolute;
 	transform-style: preserve-3d;
-	transform: translate3d(0,0,3.8em);
 }
 .pyramid .side {
 	position: absolute;
@@ -183,18 +182,18 @@ body {
 	transform-style: preserve-3d;
 }
 .pyramid .front {
-	transform: rotateX(-90deg) rotateY(0deg) rotateX(-30deg);
+	transform: translateZ(0.8em) rotateX(-90deg) rotateY(0deg) rotateX(-30deg);
 	border-bottom-color: mediumaquamarine;
 }
 .pyramid .right {
-	transform: rotateX(-90deg) rotateY(90deg) rotateX(-30deg);
+	transform: translateZ(0.8em) rotateX(-90deg) rotateY(90deg) rotateX(-30deg);
 	border-bottom-color: lightseagreen;
 }
 .pyramid .back {
-	transform: rotateX(-90deg) rotateY(180deg) rotateX(-30deg);
+	transform: translateZ(0.8em) rotateX(-90deg) rotateY(180deg) rotateX(-30deg);
 	border-bottom-color: mediumaquamarine;
 }
 .pyramid .left {
-	transform: rotateX(-90deg) rotateY(270deg) rotateX(-30deg);
+	transform: translateZ(0.8em) rotateX(-90deg) rotateY(270deg) rotateX(-30deg);
 	border-bottom-color: lightseagreen;
 }
