@@ -10,6 +10,7 @@ GAME.currentBaseHeight = 0;				// initial z
 GAME.currentRoom = 0;	// FIXME defined later
 
 // Sprite3D init:
+/*
 GAME.stage = Sprite3D.stage(document.getElementById("room"+GAME.currentRoom));
 GAME.stage.perspective(1000000)
 	.css("transform-style","preserve-3d")
@@ -20,12 +21,7 @@ GAME.stage.perspective(1000000)
 	.move(0,0,1)
 	.scale(2.5)
 	.update();
-
-
-// Draw a red 2x2 square for navigational debugging:
-var pixel = document.createElement('aside');
-pixel.setAttribute("id","pixel");
-document.querySelector("#room"+GAME.currentRoom).appendChild(pixel);
+*/
 
 
 /**
@@ -160,7 +156,7 @@ class Box extends BaseObj {
 		}
 
 		// Append to world:
-		GAME.stage.appendChild(this.el);
+		GAME.rooms[GAME.currentRoom].stage.appendChild(this.el);
 
 		return this;
 	}
@@ -212,10 +208,9 @@ class Exit extends Box {
 
 
 class Pyramid extends BaseObj {
-	//TODO
+	//TODO?
 }
 
-
 class Roof extends BaseObj {
-	//TODO
+	//TODO?
 }

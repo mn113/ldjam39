@@ -64,7 +64,7 @@ class Character extends BaseObj {
 
 		this.reportLoc();
 		// Append to world:
-		GAME.stage.appendChild(this.el);
+		GAME.rooms[GAME.currentRoom].stage.appendChild(this.el);
 		this.placeAt(this.getPoint3d());
 		this.reportLoc();
 

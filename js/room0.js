@@ -4,6 +4,22 @@
 var GAME = GAME || {};
 GAME.currentRoom = 0;
 
+// Set up a Sprite3D stage:
+GAME.rooms[GAME.currentRoom].stage = Sprite3D.stage(
+	document.getElementById("room"+GAME.currentRoom)
+);
+GAME.rooms[GAME.currentRoom].stage
+	.perspective(1000000)
+	.css("transform-style","preserve-3d")
+	.origin(100,0,0)
+	.transformString('rx rz translate scale')
+	.rotationX(60)
+	.rotationZ(45)
+	.move(0,0,1)
+	.scale(2.5)
+	.update();
+
+// Define room contents:
 GAME.rooms[GAME.currentRoom].contents = (function() {
 	var g = {};
 
@@ -280,3 +296,5 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	return g;
 
 }());
+
+GAME.rooms[GAME.currentRoom].loaded = true;
