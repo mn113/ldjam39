@@ -21,6 +21,13 @@ body {
 	perspective-origin: 50% 0%;
 	perspective: 1000000px;
 	position: relative;
+	left: 100%;
+	transition: left 1.2s, opacity 0.8s;
+	opacity: 0;
+}
+.room.current {
+	left: 0;
+	opacity: 1;
 }
 .room > * {
 	position: absolute;

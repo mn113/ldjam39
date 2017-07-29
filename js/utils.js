@@ -18,9 +18,10 @@ GAME.utils = {
 			// Get default room spawnPt if none passed:
 			if (typeof spawnPt === 'undefined') spawnPt = GAME.rooms[newRoomId].respawn;
 
-			// Visual slide effect:
-			$("#room"+oldRoomId).fadeOut(1000);
-			$("#room"+newRoomId).fadeIn(1000);
+			var slideDir = '???';
+			// Visual sliding left fading effect:	//TODO: slide left, right or other directions? depending on game.worldRotateZ
+			$("#room"+oldRoomId).removeClass("current");
+			$("#room"+newRoomId).addClass("current");
 			GAME.currentRoom = newRoomId;
 			GAME.player.respawn(newRoomId, spawnPt);
 		}
