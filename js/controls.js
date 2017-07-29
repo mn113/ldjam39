@@ -56,6 +56,15 @@ $(function() {
 		if (!$target.hasClass('top'))
 			return;
 
+		// Read data-z of tile for height calculation:
+		var targetZ =  parseInt($target.parent().data('z')) || 0;
+		// Don't walk if required to climb/descend over 0.2 units:
+		console.log(GAME.player.el.z());
+		var deltaZ = Math.abs(targetZ - GAME.player.el.z()) - 20;	// TODO: fix z-fudge
+		console.log("dZ =", deltaZ);
+		if (deltaZ > 0.2 * GAME.tileSize)
+			return;
+
 		// Move debugging pixel:
 		$pixel
 			.appendTo($target)
@@ -98,19 +107,12 @@ $(function() {
 			console.log(targetPoint, level+" levels traversed");
 		}
 
-		// Height calculation:
-		var z = 0;
-		// Read data-z of tile:
-		//if ($target.data('z')) {
-		z = parseInt($target.parent().data('z')) || 0;
-		//}
-		console.log("Setting Z", z);
-
 		// Go to clicked pixel and set sprite z:
+		console.log("Setting Z", targetZ);
 		player.walkTo({
 			x: targetPoint.x - 8,
 			y: targetPoint.y - 24,
-			z: z
+			z: targetZ
 		});
 
 		// Centre world around player AFTER movement:
@@ -123,8 +125,8 @@ GAME.utils = {
 	rotateWorld: function() {
 		GAME.stage.rotationZ(GAME.worldRotateZ).update();
 		// Keep player facing the camera:
-		GAME.player.face(360 - GAME.worldRotateZ);	// BUG: .rotationZ() NOT WORKING
-		//GAME.player.jqEl.css({transform: 'rotateZ('+(360 - GAME.worldRotateZ)+'deg) rotateX(-90deg) translateX(0.5em) translateY(-0.5em) scale(.7)'});	// TODO: fix!
+		// TODO: replicate for all sprite2d's
+		GAME.player.face(360 - GAME.worldRotateZ);
 
 		GAME.utils.updateZIndexes();
 	},

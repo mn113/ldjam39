@@ -10,7 +10,11 @@ GAME.characters = {
 	*/
 	loadPlayer: function() {
 		// She's not the hero we need, she's the hero we DESERVE!
-		GAME.player = new Hero('player', 0, {x:3, y:3});	// TODO: get room spawnPt
+		GAME.player = new Hero({
+			name: 'player',
+			room: GAME.currentRoom,
+			point3d: {x:3, y:3}		// TODO: get room spawnPt from GAME.rooms
+		});
 	}
 };
 
@@ -36,35 +40,33 @@ class Character extends BaseObj {
 	* @param {int} room
 	* @param {Object} point3d
 	*/
-	constructor(name, room, point3d) {
-		super();
-		this.name = name;
+	constructor(params) {
+		super(params);
 
 		// Wrapper for document.createElement('div')
 		// Also gives element extra 3D functionality:
 		this.el = Sprite3D.create();
-		this.el.addClass("character").setAttribute("id", name);
+		this.el.addClass("character").setAttribute("id", params.name);
 
 		// Also attach jQuery wrapped reference:
 		this.jqEl = $(this.el);
-
-		// Establish coordinates:
-		this.setXYZ(point3d);
 
 		// Undo world 3D-transform so sprite looks 2D:
 		this.el
 			.transformOrigin('50% 100%')
 			.transformString('scale translate rz rx')
-			.scale(0.7)		// TODO: use 1:1 scale sprite
-			.z(this.z * 10)	// 20px per unit
-			.move(10,0,0)	// correct registration?
+			.scale(0.7)		// TODO: use 1:1 scale sprite?
+			//.z(this.z * 10)	// 20px per unit
+			.move(10,0,20)	// correcting registration?
 			.rotationZ(-45)
 			.rotationX(-90)
 			.update();
 
+		this.reportLoc();
 		// Append to world:
 		GAME.stage.appendChild(this.el);
 		this.placeAt(this.getPoint3d());
+		this.reportLoc();
 
 		return this;
 	}
@@ -105,32 +107,6 @@ class Character extends BaseObj {
 		console.log('', dx.toFixed(3), 'dx', dy.toFixed(3), 'dy');
 		console.log('', distance.toFixed(3), 'metres', duration.toFixed(3), 'milliseconds');
 
-		/*
-		// Give owner the correct classes:
-		this.jqEl
-			.addClass(dir)
-			.addClass("walking");
-
-		// Perform animation using Transit:
-		this.jqEl.transition({
-			left: point3d.x,
-			top: point3d.y,
-			translateZ: point3d.z + 'em',
-			complete: function() {
-				this.jqEl
-					.removeClass("right left back")
-					.removeClass("walking");
-
-				// Update player's z-index:
-				updateZIndexes(true);
-
-				// Update player internals:
-				this.setXYZ(point3d);
-				this.el.update();
-			}.bind(this)
-		}, duration);
-		*/
-
 		var me = this;	// because some function nesting follows
 
 		me.jqEl.queue("walk", function(next) {
@@ -160,7 +136,7 @@ class Character extends BaseObj {
 					me.face(360 - GAME.worldRotateZ);
 
 					// Update player internals:
-					me.setXYZ(point3d);
+					me.setXYZ(point3d, false);	// false = pixel units here
 					me.el.update();
 
 					//me.updateXYZ().reportLoc();
@@ -188,7 +164,6 @@ class Character extends BaseObj {
 	* @param {int} angle
 	*/
 	face(angle) {
-		console.log(this.el, angle);
 		this.el
 			.rotationZ(angle)
 			.update();
@@ -242,8 +217,14 @@ class Character extends BaseObj {
 */
 class Hero extends Character {
 
-	constructor(name, room, point3d) {
-		super(name, room, point3d);
+	/**
+	* constructor() - make a new hero
+	* @param {str} name
+	* @param {int} room
+	* @param {Object} point3d {x,y,z} in em
+	*/
+	constructor(params) {
+		super(params);
 
 		// Add her head sprite:
 		this.head = $("<div>").addClass("head");

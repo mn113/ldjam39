@@ -25,19 +25,37 @@ GAME.stage.perspective(1000000)
 var pixel = document.createElement('aside');
 pixel.setAttribute("id","pixel");
 document.querySelector("#room").appendChild(pixel);
-//var ctx = pixel.getContext('2d');
-//ctx.fillStyle='#ff0000';
-//ctx.fillRect(0, 0, 2, 2);
+
 
 /**
 * Basic positioning methods for objects with jQuery & Sprite3D elements:
 */
 class BaseObj {
 	/**
-	* constructor() - empty
+	* constructor() - just set params
+	* @param {str} id
+	* @param {str} name
+	* @param {Object} point3d {x,y,z} in em
 	*/
 	constructor(params) {
-		// do nothing
+		if (typeof params.point3d.z === 'undefined') params.point3d.z = GAME.currentBaseHeight;
+		if (typeof params.id === 'undefined') params.id = "";
+		this.id = params.id;
+		this.name = params.name;
+		this.point3d = params.point3d;
+		this.x = params.point3d.x;
+		this.y = params.point3d.y;
+		this.z = params.point3d.z;
+
+		return this;
+	}
+
+	setXYZ(point3d, emUnits = true) {
+		// Set using pixels internally:
+		this.x = (emUnits) ? point3d.x * GAME.tileSize : point3d.x;
+		this.y = (emUnits) ? point3d.y * GAME.tileSize : point3d.y;
+		this.z = (emUnits) ? point3d.z * GAME.tileSize : point3d.z;
+		return this;
 	}
 
 	/**
@@ -69,56 +87,41 @@ class BaseObj {
 	}
 
 	/**
-	* setXYZ() - set objects position properties
-	* @param {Object} point3d
+	* reportLoc() - report my location
 	*/
-	setXYZ(point3d) {
-		if (typeof point3d.z === 'undefined') point3d.z = 1;
-		this.x = point3d.x;
-		this.y = point3d.y;
-		this.z = point3d.z;
-		return this;
+	reportLoc() {
+		console.info(this.id + ": I'm at (" + this.x + ', ' + this.y + '), Z-' + this.z);
 	}
+
 }
 
 
 /**
-* Class for a 3D box of any dimensions, position, rotation, and skins:
+* A 3D box of any dimensions, position, rotation, and skins:
 */
 class Box extends BaseObj {
 	/**
 	* constructor() - initialise a box
-	* @param {str} name
-	* //@param {int} room
-	* @param {str} id
-	* @param {str} classNames
 	* @param {Array} dimensions [dx,dy,dz] in em
-	* @param {Object} point3d {x,y,z} in em
 	* @param {int} rotationZ
+	* @param {str} classNames
 	* @param {Object} skins {faceName: className} object for CSS background images
 	*/
 	constructor(params) {
 		super(params);
 		// Process params, set defaults:
-		if (typeof params.point3d.z === 'undefined') params.point3d.z = GAME.currentBaseHeight;
-		if (typeof params.rotationZ === 'undefined') params.rotationZ = 0;
 		// If no skins, it takes className
 		// if no className, it takes currentBoxColour
 		if (typeof params.skins === 'undefined') params.skins = {};
 		if (typeof params.classNames === 'undefined') params.classNames = GAME.currentBoxColour;
-		if (typeof params.id === 'undefined') params.id = "";
-		this.name = params.name;
-		this.point3d = params.point3d;
+		if (typeof params.rotationZ === 'undefined') params.rotationZ = 0;
 		this.rotationZ = params.rotationZ;
 		this.skins = params.skins;
 		this.classNames = params.classNames;
-		this.id = params.id;
+
 		this.dx = params.dimensions[0] * GAME.tileSize;	// convert dimensions to pixels for internal use
 		this.dy = params.dimensions[1] * GAME.tileSize;
 		this.dz = params.dimensions[2] * GAME.tileSize;
-
-		// Unpack coordinates to x,y,z props:
-		this.setXYZ(this.point3d);
 
 		// Create 6 divs inside 1:
 		this.el = Sprite3D.box(
@@ -163,6 +166,9 @@ class Box extends BaseObj {
 }
 
 
+/**
+* A flat 3D box representing an exit, data-linked to corresponding room/exit:
+*/
 class Exit extends Box {
 	constructor(params) {
 		super(params);
