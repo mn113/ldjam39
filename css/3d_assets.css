@@ -11,7 +11,7 @@ body {
 	justify-content: center;
 	padding-top: 7em;
 }
-#room {
+.room {
 	border: 1em solid #ccc;
 	border-radius: 0.5em;
     width: 15em;
@@ -22,7 +22,7 @@ body {
 	perspective: 1000000px;
 	position: relative;
 }
-#room > * {
+.room > * {
 	position: absolute;
 }
 #floor {
@@ -31,16 +31,23 @@ body {
 	background: url(../img/room0_v2.png) no-repeat;
 	background-size: 15em 15em;
 }
-.exit {
+.oldexit {
 	background-color: #aaa;
 	width: 1em;
 	height: 1em;
 	text-align: center;
 }
-.north { transform: rotateZ(0deg);}
-.south { transform: rotateZ(180deg);}
-.west { transform: rotateZ(-90deg); }
-.east { transform: rotateZ(90deg); }
+.exit .top:after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #aaa url(../img/sprites/spritesheet.png) -100px -100px;
+	cursor: pointer;
+}
+.exit.west .top:after { transform: rotate(180deg); }
+.exit.north .top:after { transform: rotate(90deg); }
+.exit.south .top:after { transform: rotate(-90deg); }
 
 
 /* ITEMS */
@@ -70,47 +77,15 @@ body {
     transform-origin: 100% 0;
 }
 
-.doubled,
-.doubled:before,
-.doubled:after {
-	width: 2em;
-	height: 2em;
-	transform-origin: 50% 50% 50%;
-}
-.doubled {
-	transform: translate3d(0em,0em,2em);
-}
-.doubled:after {
-	transform: translate3d(0em,0em,-2em) rotateX(-90deg);
-}
-.doubled:before {
-	/* Fix image orientation */
-    transform: translate3d(0em,0em,0em) rotateX(-90deg) rotateY(90deg);
-}
-.doubled .back {
-	rotateZ(180deg);
-}
 .back {
 	pointer-events: none;
 }
 .cube .back {
 	transform: rotateZ(180deg);
 }
-.double .back {
-	transform: scaleZ(2) rotateZ(180deg); ;
-}
-.hill {
 
-}
-.flat20 {
-	transform: scaleZ(0.2) translateZ(1em);
-}
-.flat40 {
-	transform: scaleZ(0.4) translateZ(1em);
-}
-.raised2 {
-	transform: translateZ(3em)
-}
+
+
 
 .roof,
 .roof:after,

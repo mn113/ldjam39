@@ -11,7 +11,7 @@ $(function() {
 		curDown = false;
 	// Select a bunch of important elements with jQuery:
 	var $world = $("#world");
-	var $room = $("#room");
+	var $currentRoom = $("#room"+GAME.currentRoom);
 	var $base = $("#baseplate"+GAME.currentRoom);
 	var $pixel = $("#pixel");
 
@@ -42,7 +42,7 @@ $(function() {
 	});
 
 	// Player walks to click:
-	$room.on('mouseup', function(event) {
+	$currentRoom.on('mouseup', function(event) {
 		var player = GAME.player;
 		var $target = $(event.target);
 		var $parent = $target.parent();
@@ -76,7 +76,7 @@ $(function() {
 
 		console.log("Clicked target", $target, ", parent", $parent, event);
 
-		// #room		(rel)		// we always want x/y relative to room's top left
+		// .room		(rel)		// we always want x/y relative to room's top left
 		// 	#baseplate0	(abs)
 		// 	  .top		(abs)	<- click
 		// 	.newcube	(abs)
@@ -94,7 +94,7 @@ $(function() {
 		// Find absolute floor coordinates of point (local x/y + parent element top/left):
 		if ($target !== $base) {
 			// Target is nested
-			// Keep un-nesting the position until we hit #room:
+			// Keep un-nesting the position until we hit .room:
 			do {
 				targetPoint.x += parseInt($el[0].style.left || 0) * GAME.tileSize;
 				targetPoint.y += parseInt($el[0].style.top || 0) * GAME.tileSize;
@@ -133,20 +133,20 @@ GAME.utils = {
 
 	// Function to pan the room to keep the player roughly central on the screen
 	centreMan: function() {	// TODO: use while loops to make it smoother
-		var $room = $("#room");
+		var $currentRoom = $(".room");
 		var $player = GAME.player.jqEl;
 
 		if ($player.offset().left - window.innerWidth / 2 > 150) {
-			$room.css({"margin-left": "-=150px"});
+			$currentRoom.css({"margin-left": "-=150px"});
 		}
 		else if ($player.offset().left - window.innerWidth / 2 < -150) {
-			$room.css({"margin-left": "+=150px"});
+			$currentRoom.css({"margin-left": "+=150px"});
 		}
 		if ($player.offset().top - window.innerHeight / 2 > 150) {
-			$room.css({"margin-top": "-=150px"});
+			$currentRoom.css({"margin-top": "-=150px"});
 		}
 		else if ($player.offset().top - window.innerHeight / 2 < -150) {
-			$room.css({"margin-top": "+=150px"});
+			$currentRoom.css({"margin-top": "+=150px"});
 		}
 	},
 
@@ -157,7 +157,7 @@ GAME.utils = {
 			GAME.player.el.style.zIndex = parseInt(GAME.player.jqEl.offset().top);
 		}
 		else {
-			$("#room > *").each(function() {
+			$(".room > *").each(function() {
 				// y-coord becomes z-index:
 				this.style.zIndex = parseInt($(this).offset().top);
 			});
@@ -173,7 +173,7 @@ GAME.utils = {
 				top: GAME.tileSize * y,
 				transform: 'rotate('+rotation+')'
 			});
-		$("#room").append($div);
+		$("#room"+GAME.currentRoom).append($div);
 	}
 
 };

@@ -349,7 +349,6 @@ class Hero extends Character {
 			// Cases with no animation at all, just disappearance:
 			case 'crushed':
 			case 'squashed':
-				//$("#room").append($("<div>").addClass("bloodpool"));
 				GAME.utils.addBloodpool(me.x, me.y);
 				// falls through:
 			case 'drowned':
@@ -374,7 +373,6 @@ class Hero extends Character {
 			case 'timeparadox':
 				me.runCSSAnimation('dying', 1000, function() {
 					me.die();
-					//$("#room").append($("<div>").addClass("bloodpool"));
 					GAME.utils.addBloodpool(me.x, me.y);
 					GAME.goals.achieve(death);
 				});
@@ -386,8 +384,8 @@ class Hero extends Character {
 				me.jqEl.addClass('dead');
 
 				var $ghost = $("<div id='ghost'>").addClass('sprite2d');
-				// SHOULD THE GHOST GO ON THE UI LAYER?
-				$("#room").append($ghost);
+
+				$("#ui").append($ghost);
 				$ghost.animate({top:0, right:0}, 3000, function() {
 					$ghost.remove();
 					me.respawn();

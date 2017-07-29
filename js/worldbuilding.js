@@ -7,9 +7,10 @@ var GAME = GAME || {};
 GAME.tileSize = 20;		// 20px = 1em = 1 tile
 GAME.currentBoxColour = 'hypercube';	// initial box skin
 GAME.currentBaseHeight = 0;				// initial z
+GAME.currentRoom = 0;	// FIXME defined later
 
 // Sprite3D init:
-GAME.stage = Sprite3D.stage(document.getElementById("room"));
+GAME.stage = Sprite3D.stage(document.getElementById("room"+GAME.currentRoom));
 GAME.stage.perspective(1000000)
 	.css("transform-style","preserve-3d")
 	.origin(100,0,0)
@@ -24,7 +25,7 @@ GAME.stage.perspective(1000000)
 // Draw a red 2x2 square for navigational debugging:
 var pixel = document.createElement('aside');
 pixel.setAttribute("id","pixel");
-document.querySelector("#room").appendChild(pixel);
+document.querySelector("#room"+GAME.currentRoom).appendChild(pixel);
 
 
 /**
@@ -177,6 +178,14 @@ class Exit extends Box {
 		this.destination = params.destination;
 		this.roomId = params.roomId;
 
+		var rot = {
+			'north': 90,
+			'south': -90,
+			'east': 0,
+			'west': 180
+		};
+		this.el.rotationY(rot).update();	// BUG WTF!! rotate!
+
 		// Always spawn 1 tile from the edge:
 		this.spawnPoint = this.point3d;
 		if (this.spawnPoint.x === -1) this.spawnPoint.x += 1;
@@ -184,7 +193,7 @@ class Exit extends Box {
 		if (this.spawnPoint.y === -1) this.spawnPoint.y -= 1;
 		if (this.spawnPoint.y === 15) this.spawnPoint.y -= 1;
 
-		this.jqEl.addClass('exit');
+		this.jqEl.addClass('exit '+this.direction);
 
 		return this;
 	}

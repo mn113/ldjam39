@@ -4,7 +4,7 @@
 var GAME = GAME || {};
 GAME.currentRoom = 1;
 
-GAME.room1 = (function() {
+GAME.rooms[GAME.currentRoom].contents = (function() {
 	var g = {};
 
 	/**************************/
