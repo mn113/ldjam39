@@ -3,22 +3,6 @@
 
 var GAME = GAME || {};
 
-GAME.characters = {
-	/**
-	* init() - make a player:
-	* @param {type} paramName
-	*/
-	loadPlayer: function() {
-		// She's not the hero we need, she's the hero we DESERVE!
-		GAME.player = new Hero({
-			name: 'player',
-			room: GAME.currentRoom,
-			point3d: GAME.rooms[0].respawn
-		});
-		GAME.ui.updateBar();
-	}
-};
-
 
 /**
 * Generic class for all 2D sprites (player, npcs, doors, scenery, items...)
@@ -462,5 +446,3 @@ class Hero extends Character {
 	}
 
 }
-
-GAME.characters.loadPlayer();

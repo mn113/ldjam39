@@ -1,9 +1,19 @@
-/* global $ */
+/* global $, Hero */
 "use strict";
 
 var GAME = GAME || {};
 
 GAME.utils = {
+	loadPlayer: function() {
+		// She's not the hero we need, she's the hero we DESERVE!
+		GAME.player = new Hero({
+			name: 'player',
+			room: GAME.currentRoom,
+			point3d: GAME.rooms[0].respawn
+		});
+		GAME.ui.updateBar();
+	},
+
 	switchRoom: function(oldRoomId, newRoomId) {	// default spawnPt already passed
 		console.log("Switching to room", newRoomId);
 

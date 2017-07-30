@@ -32,7 +32,7 @@
 	justify-content: space-between;
 	pointer-events: all;
 }
-span.logo {
+span#logo {
 	background: url(../img/Pettymore_logo_small.png);
 	width: 105px;
 }
