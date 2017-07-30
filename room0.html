@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="css/2d_textures.css">
 	<link rel="stylesheet" href="css/3d_assets.css">
 	<link rel="stylesheet" href="css/ui.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bellefair">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 	<link rel="shortcut icon" href="img/favicon.png">
 	<style>
 		#mousexy {
@@ -28,6 +30,35 @@
 	<div id="ui">
 		<div id="mousexy"></div>
 		<div id="keypress"></div>
+		<div id="bar">
+			<span class="logo"></span>
+			<figure id="count" data-count="13">
+				<div class="fiver"></div>
+				<div class="fiver"></div>
+				<div class="single"></div>
+				<div class="single"></div>
+				<div class="single"></div>
+			</figure>
+			<span id="placename">Town</span>
+			<ul id="inventory">
+				<li><img src="https://unsplash.it/150/150" width="25" height="25"></li>
+				<li><img src="https://unsplash.it/151/151" width="25" height="25"></li>
+				<li><img src="https://unsplash.it/152/152" width="25" height="25"></li>
+			</ul>
+		</div>
+		<div class="dialog">
+			<div class="avatar"></div>
+			<div class="message">
+				<h2>Achievement Unlocked: Death by old age</h2>
+				<p>Now stop playing computer games and go outside before it's too late!</p>
+			</div>
+		</div>
+		<div class="dialog">
+			<div class="avatar right"></div>
+			<div class="message">
+				<blockquote>So far, all I can write is that the views are wonderful, and the food... ok, I don't have anything good to say about that yet.</blockquote>
+			</div>
+		</div>
 	</div>
 	<div id="world">
 		<div class="room current" id="room0"></div>
@@ -46,6 +77,5 @@
 	<script src="js/controls.js"></script>
 	<script src="js/ui.js"></script>
 	<script src="js/debugging.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </body>
 </html>
