@@ -15,6 +15,7 @@ GAME.characters = {
 			room: GAME.currentRoom,
 			point3d: {x:3, y:3}		// TODO: get room spawnPt from GAME.rooms
 		});
+		GAME.ui.updateBar();
 	}
 };
 
@@ -24,7 +25,13 @@ GAME.characters = {
 */
 class Sprite2D extends BaseObj {
 	constructor(params) {
-		super();
+		super(params);
+		// Wrapper for document.createElement('div')
+		// Also gives element extra 3D functionality:
+		this.el = Sprite3D.create();
+		this.el.setAttribute("id", params.name);
+
+		return this;
 	}
 }
 
@@ -32,7 +39,7 @@ class Sprite2D extends BaseObj {
 /**
 * Class for a 2D sprite character - a simple <div> with background:
 */
-class Character extends BaseObj {
+class Character extends Sprite2D {
 
 	/**
 	* constructor() - initialise a character
@@ -43,10 +50,7 @@ class Character extends BaseObj {
 	constructor(params) {
 		super(params);
 
-		// Wrapper for document.createElement('div')
-		// Also gives element extra 3D functionality:
-		this.el = Sprite3D.create();
-		this.el.addClass("character").setAttribute("id", params.name);
+		this.el.addClass("character");
 
 		// Also attach jQuery wrapped reference:
 		this.jqEl = $(this.el);
@@ -229,6 +233,7 @@ class Hero extends Character {
 		// Add her head sprite:
 		this.head = $("<div>").addClass("head");
 		this.jqEl.append(this.head);
+		this.deaths = 0;
 	}
 
 	/**
@@ -263,7 +268,7 @@ class Hero extends Character {
 	* die() - start specific death animation and gain achievement
 	* @param {str} death
 	*/
-	die(death) {
+	die(deathKey) {
 		// Freeze user input by disabling CSS pointer-events:
 		$("body").addClass("inputFrozen");
 
@@ -272,20 +277,20 @@ class Hero extends Character {
 
 		var me = this; // because lots of function nesting follows
 
-		switch(death) {
+		switch(deathKey) {
 			case 'electricity':
 			case 'lightning':
 				me.runCSSAnimation('shocked', 700, function() {
 					// Generic collapse death:
 					me.die();
-					GAME.goals.achieve(death);
+					me.achieve(deathKey);
 				});
 				break;
 
-			case 'vomiting':
+			case 'poison':
 				me.runCSSAnimation('vomiting', 1000, function() {
 					me.die();
-					GAME.goals.achieve('poison');
+					me.achieve('poison');
 				});
 				break;
 
@@ -293,56 +298,56 @@ class Hero extends Character {
 				me.runCSSAnimation('burnt', 2000, function() {
 					me.die();
 					me.disappear();
-					GAME.goals.achieve('burning');
+					me.achieve(deathKey);
 				});
 				break;
 
 			case 'frozen':
 				me.runCSSAnimation('frozen', 1000, function() {
 					me.die();
-					GAME.goals.achieve('frozen');
+					me.achieve(deathKey);
 				});
 				break;
 
 			case 'decapitation':
 				me.runCSSAnimation('headless', 1000, function() {
 					me.die();
-					GAME.goals.achieve('decapitation');
+					me.achieve(deathKey);
 				});
 				break;
 
 			case 'choking':
 				me.runCSSAnimation('blueface', 1000, function() {
 					me.die();
-					GAME.goals.achieve('choking');
+					me.achieve(deathKey);
 				});
 				break;
 
 			case 'bloodloss':
 				me.runCSSAnimation('whiteface', 750, function() {
 					me.die();
-					GAME.goals.achieve('bloodloss');
+					me.achieve(deathKey);
 				});
 				break;
 
 			case 'allergy':
 				me.runCSSAnimation('redface', 750, function() {
 					me.die();
-					GAME.goals.achieve('allergy');
+					me.achieve(deathKey);
 				});
 				break;
 
 			case 'dysentery':
 				me.runCSSAnimation('greenface', 750, function() {
 					me.die();
-					GAME.goals.achieve('dysentery');
+					me.achieve(deathKey);
 				});
 				break;
 
 			case 'chocolate':
 				me.runCSSAnimation('brownface', 750, function() {
 					me.die();
-					GAME.goals.achieve('chocolate');
+					me.achieve(deathKey);
 				});
 				break;
 
@@ -354,7 +359,7 @@ class Hero extends Character {
 			case 'drowned':
 			case 'sharkfood':
 				me.disappear();
-				GAME.goals.achieve(death);
+				me.achieve(deathKey);
 				break;
 
 			// Generic blood-fall cases:
@@ -374,7 +379,7 @@ class Hero extends Character {
 				me.runCSSAnimation('dying', 1000, function() {
 					me.die();
 					GAME.utils.addBloodpool(me.x, me.y);
-					GAME.goals.achieve(death);
+					me.achieve(deathKey);
 				});
 				break;
 
@@ -382,16 +387,31 @@ class Hero extends Character {
 			default:
 				// Animation (if called) has just finished
 				me.jqEl.addClass('dead');
-
-				var $ghost = $("<div id='ghost'>").addClass('sprite2d');
-
-				$("#ui").append($ghost);
-				$ghost.animate({top:0, right:0}, 3000, function() {
-					$ghost.remove();
-					me.respawn();
-				});
+				me.becomeGhost();
 				break;
 		}
+	}
+
+	/**
+	* becomeGhost() - add a ghost sprite at player's position and float upwards
+	*/
+	becomeGhost() {
+		var $ghost = $("<div id='ghost'>");//.addClass('sprite2d');
+		$("#ui").append($ghost);
+
+		// Give ghost screen coordinates of player:
+		$ghost.css({
+			left: this.jqEl.offset().left,
+			top: this.jqEl.offset().top
+		});
+
+		// Ascend to heaven:
+		$ghost.animate({top:0}, 3000, function() {	//TODO: make cooler-looking effect
+			$ghost.remove();
+			this.respawn();
+		}.bind(this));
+
+		return this;
 	}
 
 	/**
@@ -408,6 +428,20 @@ class Hero extends Character {
 		this.runCSSAnimation('flashing', 3000, function() {
 			$("body").removeClass("inputFrozen");
 		});
+	}
+
+	/**
+	* achieve() - complete a game achievement, show text on screen
+	* @param {str} deathKey
+	*/
+	achieve(deathKey) {
+		// Dirty hack to account for ghost animation:
+		setTimeout(function() {
+			GAME.achievements[deathKey].unlocked = true;
+			GAME.ui.showSuccessMessage(GAME.achievements[deathKey]);
+			GAME.player.deaths++;
+			GAME.ui.updateDeathCount();
+		}, 2000);
 	}
 
 	/**

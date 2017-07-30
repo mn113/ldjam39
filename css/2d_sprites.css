@@ -4,14 +4,14 @@
 	position: absolute;
 	/* untransform sprite: */
 	transform-origin: 50% 100%;
-	transform: rotateZ(-45deg) rotateX(-90deg) translateY(1px) scale(0.7);
+	transform: rotateZ(-45deg) rotateX(-90deg) scale(0.7);
 	image-rendering: pixelated;
 }
 .sprite2d.ground {
-
+	transform: rotateZ(-45deg) rotateX(-90deg) scale(0.7);
 }
 .sprite2d.upright {
-
+	transform: rotateZ(-45deg) scale(0.7);
 }
 
 #player {
@@ -172,11 +172,14 @@
 }
 #ghost {
 	/* is a separate element because both appear at the same time */
+	position: absolute;
+	image-rendering: pixelated;
 	width: 20px;
 	height: 25px;
 	background-image: url(../img/sprites/spritesheet.png);
 	background-position: -60px -25px;
-	opacity: 30%;
+	opacity: 0.5;
+	transform: scale(1.5);
 	/* animation is a simple movement done via js */
 }
 .bloodpool {

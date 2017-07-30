@@ -17,6 +17,7 @@
 	z-index: 2345;
 	font: normal 20px/1.4em Bellefair, Georgia, serif;
 	color: lightyellow;
+	pointer-events: none;
 }
 #bar {
 	position: fixed;
@@ -29,6 +30,7 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
+	pointer-events: all;
 }
 span.logo {
 	background: url(../img/Pettymore_logo_small.png);
@@ -112,3 +114,14 @@ blockquote:after {content:"\201D"; right:0; bottom:0;}
 .right {
 	order: 2
 }
+
+/* AVATARS */
+.avatar.player { background: url(../img/avatars/Samantha.jpg); }
+.avatar.npc-male1 { background: url(../img/avatars/npcmale1.jpg); }
+.avatar.npc-male2 { background: url(../img/avatars/npcmale2.jpg); }
+.avatar.npc-male3 { background: url(../img/avatars/npcmale3.jpg); }
+.avatar.npc-male4 { background: url(../img/avatars/npcmale4.jpg); }
+.avatar.npc-female1 { background: url(../img/avatars/npcfem1.jpg); }
+.avatar.npc-female2 { background: url(../img/avatars/npcfem2.jpg); }
+.avatar.npc-mother { background: url(../img/avatars/npcmother.jpg); }
+.avatar.npc-father { background: url(../img/avatars/npcfather.jpg); }
