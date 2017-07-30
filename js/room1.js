@@ -38,22 +38,20 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 		}
 	});
 	// Exits:
-	g.exits = [
-		new Exit({
+	g.exits = {
+		0: new Exit({
 			dimensions: [1, 1, GAME.currentBaseHeight],
 			point3d: {x:-1, y:4, z:0},
-			classNames: 'exit',
 			direction: 'west',
-			destination: {room:0, exit:0}
+			destination: {room:0, exit:0}	// exits are connected through matching ids
 		}),
-		new Exit({
+		1: new Exit({
 			dimensions: [1, 1, GAME.currentBaseHeight],
 			point3d: {x:-1, y:12, z:0},
-			classNames: 'exit',
 			direction: 'west',
 			destination: {room:0, exit:1}
 		})
-	];
+	};
 	// Buildings:
 	g.churchback = new Box({
 		dimensions: [1, 3, 2],

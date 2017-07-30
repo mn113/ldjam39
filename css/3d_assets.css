@@ -1,40 +1,41 @@
 body {
-	xbackground: linear-gradient(90deg, rgba(0,255,255,1) 0%, rgba(214,255,179,1) 50%, rgba(0,255,255,1) 100%);
-	background: #d9a7c7; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to top left, #d9a7c7, #fffcdc); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to top left, #d9a7c7, #fffcdc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	overflow: hidden;
 	font-size: 20px;	/* defines 20px = 1em */
+	background: #fffcdc; /* fallback for old browsers */
+	xbackground: linear-gradient(90deg, #d9a7c7 30%, #fffcdc 50%, #d9a7c7 70%);
+	background: radial-gradient(ellipse at center, #fffcdc 0%, #d9a7c7 30%, #d9a7c7 100%);
+	background-size: 150%;
+	background-position: 0 -200px;	/* x will be animated */
 }
 #ui {
 	position: relative;
 	height: 100vh;
 }
 #world {
-	font-size: 100%;
+	position: relative;
 	height: calc(100vh - 7em);
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	padding-top: 7em;
+	xfont-size: 100%;
 }
 .room {
 	border: 1em solid #ccc;
 	border-radius: 0.5em;
     width: 15em;
     height: 15em;
-    transform: scale(3) rotateX(60deg) rotateZ(45deg);
+    transform: scale(2.5) rotateX(60deg) rotateZ(45deg);
     transform-style: preserve-3d;
 	perspective-origin: 50% 0%;
 	perspective: 1000000px;
-	position: relative;
+	position: absolute;
 	left: 100%;
 	transition: left 1.2s, opacity 0.8s;
-	opacity: 0;
+	opacity: 0.2;
+	z-index: 0;
 }
 .room.current {
 	left: 0;
 	opacity: 1;
+	z-index: 1;
 }
 .room > * {
 	position: absolute;

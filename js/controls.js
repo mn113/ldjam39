@@ -2,20 +2,24 @@
 "use strict";
 
 var GAME = GAME || {};
+GAME.utils = GAME.utils || {};
 
 GAME.worldRotateZ = 45;
 GAME.worldScale = 1;
 
+// On jQ load:
 $(function() {
+	GAME.utils.bindEventsToCurrentRoom();
+});
 
+// Attach click, drag and scroll events to room div which is "current":
+GAME.utils.bindEventsToCurrentRoom = function() {
 	var clickXPos,
 		curDown = false;
-	// Select a bunch of important elements with jQuery:
 	var $world = $("#world");
 	var $currentRoom = $("#room"+GAME.currentRoom);
 	var $base = $("#baseplate"+GAME.currentRoom);
 	var $pixel = $("#pixel");
-
 
 	// Convert side-to-side mouse drags to +/- Z-rotation:
 	$world.on('mousemove', function(e) {
@@ -30,7 +34,7 @@ $(function() {
 		}
 	})
 	.on('mousedown', function(e) {
-		// Keep track of cursor position and whether button is up or dropdown
+		// Keep track of cursor position and whether button is up or down
 		// TODO: find out how to add touch events for mobile users
 		clickXPos = e.pageX;
 		curDown = true;
@@ -120,10 +124,19 @@ $(function() {
 			x: targetPoint.x - 8,
 			y: targetPoint.y - 24,
 			z: targetZ
+		}, function() {
+			// Handle an exit tile if stepped on:
+			if ($parent.hasClass('exit')) {
+				var destRoom = $parent.data("dest-room"),
+					destExit = $parent.data("dest-exit");
+
+				console.log("Exit", destRoom + destExit/10, "triggered");
+				// Find Exit object and use it:
+				GAME.rooms[GAME.currentRoom].contents.exits[destExit].exitFrom();
+			}
 		});
 
 		// Centre world around player AFTER movement:
 		setTimeout(GAME.utils.centreMan, 500);
 	});
-
-}); // end of jQuery onload wrapper
+};

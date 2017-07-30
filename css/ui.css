@@ -109,6 +109,7 @@ blockquote:after {content:"\201D"; right:0; bottom:0;}
 	height: 100px;
 	padding: 10px;
 	background: url(https://unsplash.it/80/80);
+	background-size: cover;
 	order: 0;
 }
 .right {
@@ -116,12 +117,12 @@ blockquote:after {content:"\201D"; right:0; bottom:0;}
 }
 
 /* AVATARS */
-.avatar.player { background: url(../img/avatars/Samantha.jpg); }
-.avatar.npc-male1 { background: url(../img/avatars/npcmale1.jpg); }
-.avatar.npc-male2 { background: url(../img/avatars/npcmale2.jpg); }
-.avatar.npc-male3 { background: url(../img/avatars/npcmale3.jpg); }
-.avatar.npc-male4 { background: url(../img/avatars/npcmale4.jpg); }
-.avatar.npc-female1 { background: url(../img/avatars/npcfem1.jpg); }
-.avatar.npc-female2 { background: url(../img/avatars/npcfem2.jpg); }
-.avatar.npc-mother { background: url(../img/avatars/npcmother.jpg); }
-.avatar.npc-father { background: url(../img/avatars/npcfather.jpg); }
+.avatar.player { background-image: url(../img/avatars/Samantha.jpg); }
+.avatar.npc-male1 { background-image: url(../img/avatars/npcmale1.jpg); }
+.avatar.npc-male2 { background-image: url(../img/avatars/npcmale2.jpg); }
+.avatar.npc-male3 { background-image: url(../img/avatars/npcmale3.jpg); }
+.avatar.npc-male4 { background-image: url(../img/avatars/npcmale4.jpg); }
+.avatar.npc-female1 { background-image: url(../img/avatars/npcfem1.jpg); }
+.avatar.npc-female2 { background-image: url(../img/avatars/npcfem2.jpg); }
+.avatar.npc-mother { background-image: url(../img/avatars/npcmother.jpg); }
+.avatar.npc-father { background-image: url(../img/avatars/npcfather.jpg); }

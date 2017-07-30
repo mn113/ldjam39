@@ -13,7 +13,7 @@ GAME.characters = {
 		GAME.player = new Hero({
 			name: 'player',
 			room: GAME.currentRoom,
-			point3d: {x:3, y:3}		// TODO: get room spawnPt from GAME.rooms
+			point3d: GAME.rooms[0].respawn
 		});
 		GAME.ui.updateBar();
 	}
@@ -80,7 +80,7 @@ class Character extends Sprite2D {
 	* (takes into account z-changes too)
 	* @param {Object} point3d {x,y,z} in PIXELS now!
 	*/
-	walkTo(point3d) {
+	walkTo(point3d, callback) {
 		if (typeof point3d.z === 'undefined') point3d.z = GAME.currentBaseHeight * GAME.tileSize;
 
 		console.log("I start at", this.getPoint3d());
@@ -148,7 +148,7 @@ class Character extends Sprite2D {
 					if (q.length < 1 && !$(this).is(':animated')) {
 						me.jqEl.removeClass("walking fast");	// only stop anim after last queue item
 						console.warn("Stopped animating.");
-						return;
+						callback.call();
 					}
 				}
 			});
@@ -193,7 +193,7 @@ class Character extends Sprite2D {
 
 		setTimeout(function() {
 			this.jqEl.removeClass(animName);
-			console.log("Calling back.", new Date().getTime() % 1000000);
+			console.log("Animation", animName, "completed.", new Date().getTime() % 1000000);
 			callback.call();
 		}.bind(this), duration);
 	}
@@ -423,8 +423,11 @@ class Hero extends Character {
 		this.disappear();
 		// Clear any classes:
 		this.jqEl.removeClass();
-		this.placeAt(GAME.rooms[roomId].respawn);
+		// Transport to correct room and square:
+		this.jqEl.appendTo($("#room"+roomId));
+		this.placeAt(spawnPt || GAME.rooms[roomId].respawn);
 		this.appear();
+		// Flash:
 		this.runCSSAnimation('flashing', 3000, function() {
 			$("body").removeClass("inputFrozen");
 		});

@@ -42,26 +42,26 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	});
 
 	GAME.currentBoxColour = 'grey';
-	g.exits = [
-		new Exit({
+	g.exits = {
+		0: new Exit({
 			dimensions: [1, 1, GAME.currentBaseHeight],
 			point3d: {x:15, y:4, z:0},
 			direction: 'east',
-			destination: {room:0, exit:0}
+			destination: {room:1, exit:0}	// exits are connected through matching ids
 		}),
-		new Exit({
+		1: new Exit({
 			dimensions: [1, 1, GAME.currentBaseHeight],
 			point3d: {x:15, y:12, z:0},
 			direction: 'east',
-			destination: {room:0, exit:1}
+			destination: {room:1, exit:1}
 		}),
-		new Exit({
+		2: new Exit({
 			dimensions: [1, 1, GAME.currentBaseHeight],
 			point3d: {x:-1, y:7, z:0},
 			direction: 'west',
-			destination: {room:0, exit:1}
+			destination: {room:1, exit:2}
 		})
-	];
+	};
 
 	GAME.currentBoxColour = 'blue';
 	g.houses = [
@@ -285,12 +285,6 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 		.append($("<div>").addClass("side right"))
 		.append($("<div>").addClass("side front"))
 		.append($("<div>").addClass("side back"));
-
-	g.tallbox = new Box({
-		dimensions: [0.5, 1, 5],
-		point3d: {x:6.75, y:6.5},
-		classNames: 'hypercube'
-	});
 
 	// Revealing module pattern
 	return g;

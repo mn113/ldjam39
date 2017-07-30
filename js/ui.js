@@ -3,37 +3,6 @@
 
 var GAME = GAME || {};
 
-GAME.currentAct = 1;
-GAME.avatars = {
-	'npc-m1': {
-
-	},
-	'npc-f1': {
-
-	},
-	'npc-father': {
-
-	},
-	'npc-mother': {
-
-	}
-};
-
-GAME.dialogue = {
-	act1: {
-		player: [
-			"Samantha Pettymore, travel writer. How do you do?",
-			"Why is everyone ignoring me around here?",
-			"Hello? What's the matter, cat got your tongue?"
-		],
-		npc: [
-			"Cough cough.",
-			"Don't bother trying. You'll never succeed.",
-			"I'm pleased you're here. But stop pretending."
-		]
-	}
-};
-
 GAME.ui = {
 
 	updateBar() {
@@ -90,8 +59,8 @@ GAME.ui = {
 	// Respawning triggers a player speech
 	showSpeech: function(character, lineId = 0) {
 		// Take lines one by one from the top by default:
-		var line = GAME.dialogue['act'+GAME.currentAct][character][lineId];
-		delete GAME.dialogue['act'+GAME.currentAct][character][lineId];	// sets undefined
+		var line = GAME.dialogue['act'+GAME.currentAct][character].shift();
+		//delete GAME.dialogue['act'+GAME.currentAct][character].shift();	// sets undefined
 
 		if (typeof line === 'undefined')
 			return;

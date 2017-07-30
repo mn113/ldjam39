@@ -172,7 +172,7 @@ class Exit extends Box {
 		if (params.roomId === 'undefined') params.roomId = GAME.currentRoom;
 		this.direction = params.direction;
 		this.destination = params.destination;
-		this.roomId = params.roomId;
+		this.roomId = GAME.currentRoom;
 
 		var rot = {
 			'north': 90,
@@ -180,7 +180,7 @@ class Exit extends Box {
 			'east': 0,
 			'west': 180
 		};
-		this.el.rotationY(rot).update();	// BUG WTF!! rotate!
+		//this.el.rotationY(rot).update();	// BUG WTF!! rotate!
 
 		// Always spawn 1 tile from the edge:
 		this.spawnPoint = this.point3d;
@@ -189,19 +189,23 @@ class Exit extends Box {
 		if (this.spawnPoint.y === -1) this.spawnPoint.y -= 1;
 		if (this.spawnPoint.y === 15) this.spawnPoint.y -= 1;
 
-		this.jqEl.addClass('exit '+this.direction);
+		this.jqEl.addClass('exit '+this.direction)
+		.data("dest-room", this.destination.room)
+		.data("dest-exit", this.destination.exit);
 
 		return this;
 	}
 
 	exitFrom() {
-		// Load new room
+		console.warn("Exiting room", this.roomId, "by exit", this.destination.exit);
+		// Load new room:
+		GAME.utils.switchRoom(this.roomId, this.destination.room);
 		// Enter:
-		// GAME.rooms[this.destination.room].exits[this.destination.exit].enterFrom()
+		GAME.rooms[this.destination.room].contents.exits[this.destination.exit].enterFrom();
 	}
 
 	enterFrom() {
-		console.log("Entering room", this.roomId, "at", this.spawnPoint);
+		console.warn("Entering room", this.roomId, "at", this.spawnPoint);
 		GAME.player.respawn(this.roomId, this.spawnPoint);
 	}
 }
