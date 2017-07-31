@@ -189,7 +189,9 @@ class Hero extends Character {
 		this.head = $("<div>").addClass("head");
 		this.jqEl.append(this.head);
 		this.deaths = 0;
-		this.inventory = ['lighter','lolly','donut3'];
+		this.inventory = ['lighter','lolly','donut3', 'donut2', 'donut1', 'paper', 'hotdog'];
+		this.obesity = 0;
+		this.coretemp = 0;
 	}
 
 	/**
@@ -216,7 +218,7 @@ class Hero extends Character {
 	/**
 	* getItem() - gain an item
 	* @param {str} item
-	*/
+	*/ // FIXME NOT USED
 	getItem(item) {
 		GAME.inventory.push(item);
 		return this;
@@ -229,7 +231,51 @@ class Hero extends Character {
 	*/
 	useItem(item, loseIt = true) {
 		console.log(item, loseIt);
-		// switch(item)
+
+		var me = this;
+		if (loseIt) me.inventory = me.inventory.filter(i => { return i !== item; });
+
+		switch(item) {
+			case 'paper':
+				// Die of paper cut
+				me.showHealthBar('blood', 75);
+				me.showHealthBar('blood', 50);
+				me.showHealthBar('blood', 25);
+				me.die('bloodloss');
+				break;
+			case 'condom':
+				// Die of asphyxiation
+				me.die();
+				break;
+			case 'scissors':
+				// Ask to walk or run
+				console.log("Scissors not implemented.");
+				break;
+			case 'rock':
+				// If in park, throw at beehive
+				console.log("Rock not implemented.");
+				break;
+			case 'hotdog':
+				// Die of choking
+				me.die('choking');
+				break;
+			case 'lolly':
+				// Decrease core temp until you die
+				me.coretemp--;
+				me.showHealthBar('temperature', 75 - 25 * me.coretemp);	// 50,25
+				if (me.coretemp === -2) me.die('freezing');
+				break;
+			case 'donut1':
+			case 'donut2':
+			case 'donut3':
+				// Increase obesity until you die
+				me.obesity++;	// 0,1,2,3
+				me.showHealthBar('fitness', 100 - 25 * me.obesity);	// 75,50,25
+				if (me.obesity === 3) me.die('obesity');
+				break;
+			default:
+				console.log("No item to use.");
+		}
 	}
 
 	/**

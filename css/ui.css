@@ -89,34 +89,41 @@ ul#inventory {
 	flex-direction: row;
 	flex-wrap: nowrap;
 }
-.message {
+.message, .question {
 	padding: 0 1em;
 	order: 1;
 	flex-grow: 1;
 }
-.message h2 {
+.question {
+	pointer-events: all;
+}
+.dialog h2 {
 	font-size: 1.5em;
 }
-.message p {
-
+.question p {
+}
+.question a {
+	cursor: pointer;
 }
 blockquote:before, blockquote:after {font-size:2em; opacity: 0.5;}
 blockquote:before {content:"\201C"; left:0; top:30px;}
 blockquote:after {content:"\201D"; right:0; bottom:0;}
 
-.avatar {
+/* AVATARS */
+.avatar,
+.itempic {
 	width: 100px;
 	height: 100px;
 	padding: 10px;
+}
+.avatar {
 	background: url(https://unsplash.it/80/80);
 	background-size: cover;
 	order: 0;
 }
-.right {
+.avatar.right {
 	order: 2
 }
-
-/* AVATARS */
 .avatar.player { background-image: url(../img/avatars/Samantha.jpg); }
 .avatar.npc-male1 { background-image: url(../img/avatars/npcmale1.jpg); }
 .avatar.npc-male2 { background-image: url(../img/avatars/npcmale2.jpg); }
@@ -128,17 +135,18 @@ blockquote:after {content:"\201D"; right:0; bottom:0;}
 .avatar.npc-father { background-image: url(../img/avatars/npcfather.jpg); }
 
 /* INVENTORY */
-#inventory li {
+#inventory li,
+#ui .itempic {
 	background-image: url(../img/ui/ui.jpg);
 }
-#inventory .creditcard { background-position: 0 0; }
-#inventory .rock	{ background-position: -80px 0; }
-#inventory .lighter { background-position: -160px 0; }
-#inventory .paper	{ background-position: -240px 0; }
-#inventory .condom	{ background-position: -320px 0; }
-#inventory .cigarettes { background-position: 0 -80px; }
-#inventory .hotdog	{ background-position: -80px -80px; }
-#inventory .donut1	{ background-position: -160px -80px; }
-#inventory .donut2	{ background-position: -240px -80px; }
-#inventory .donut3 	{ background-position: -320px -80px; }
-#inventory .lolly 	{ background-position: 0 -160px; }
+#ui .creditcard { background-position: 0 0; }
+#ui .rock	{ background-position: -80px 0; }
+#ui .lighter { background-position: -160px 0; }
+#ui .paper	{ background-position: -240px 0; }
+#ui .condom	{ background-position: -320px 0; }
+#ui .cigarettes { background-position: 0 -80px; }
+#ui .hotdog	{ background-position: -80px -80px; }
+#ui .donut1	{ background-position: -160px -80px; }
+#ui .donut2	{ background-position: -240px -80px; }
+#ui .donut3 	{ background-position: -320px -80px; }
+#ui .lolly 	{ background-position: 0 -160px; }

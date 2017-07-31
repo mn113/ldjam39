@@ -88,6 +88,46 @@ GAME.ui = {
 		}, 2500);
 	},
 
+	// Show overlay with a yes/no question:
+	// Actions must be bound to the yes/no buttons on creation
+	showQuestion(verb, objectName) {
+		if (verb === 'Use') {
+			$("#ui")
+				.append($("<div>")
+					.addClass("dialog")
+					.append($("<div>")
+						.addClass("itempic "+objectName)
+					)
+					.append($("<div>")
+						.addClass("question")
+						.data("use-item", objectName)
+						.append("<h2>Use "+objectName+"?</h2>")
+						.append($("<p>")
+							.append($("<a>")
+								.html("Yes")
+								.on('click', function() {
+									var useItem = $(this).parent().data("use-item");
+									// Remove parent container, clearing UI:
+									$(this).parents(".dialog").remove();
+									GAME.player.useItem(useItem);
+								})
+							)
+							.append($("<a>")
+								.html("No")
+								.on('click', function() {
+									// Remove parent container, clearing UI:
+									$(this).parents(".dialog").remove();
+								})
+							)
+						)
+					)
+			);
+		}
+		else {
+			// not 'Use'
+		}
+	},
+
 	// shopDialog
 	showShop: function(shopId) {
 

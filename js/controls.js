@@ -10,6 +10,13 @@ GAME.worldScale = 1;
 // On jQ load:
 $(function() {
 	GAME.utils.bindEventsToCurrentRoom();
+
+	// Inventory:
+	$("#inventory").on('click', function(event) {
+		console.log(event.target);
+		// Show confirmation question:
+		GAME.ui.showQuestion('Use', event.target.classList[0]);
+	});
 });
 
 // Attach click, drag and scroll events to room div which is "current":
@@ -139,4 +146,5 @@ GAME.utils.bindEventsToCurrentRoom = function() {
 		// Centre world around player AFTER movement:
 		setTimeout(GAME.utils.centrePlayer, 500);
 	});
+
 };
