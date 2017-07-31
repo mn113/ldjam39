@@ -14,20 +14,22 @@
 	transform: rotateZ(-45deg) scale(0.7);
 }
 
-#player {
+.character {
 	position: absolute;
 	width: 20px;
 	height: 25px;
 	/* untransform sprite: */
 	xtransform-origin: 50% 100%;
 	xtransform: rotateZ(-45deg) rotateX(-90deg) translateY(1px) scale(0.7);
-	image-rendering: pixelated;
-	border-bottom: 2px solid black;
 	background-image: url(../img/sprites/spritesheet.png);
+	image-rendering: pixelated;
+	cursor: pointer;
+}
+#player {
+	border-bottom: 2px solid black;
 	background-position: -20px 0;
 	pointer-events: none;
 }
-
 #player.right {
 	background-position: -20px -25px;
 }
@@ -252,3 +254,8 @@
 .doorRed.open 	{ background-position: -201px -207px; }
 .doorBrown 		{ background-position: -184px -223px; }
 .doorBrown.open { background-position: -201px -223px; }
+
+#npcmale1 { background-position: -160px -125px; }
+#npcmale2 { background-position: -180px -125px; }
+#npcmale3 { background-position: -200px -125px; }
+#npcmale4 { background-position: -220px -125px; }

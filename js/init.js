@@ -12,5 +12,5 @@ GAME.npcs = {};
 GAME.npcs.npcmale1 = new Character({
 	id: 'npcmale1',
 	room: GAME.currentRoom,
-	point3d: {x:14, y:14}
+	point3d: {x:0, y:14}
 });

@@ -18,7 +18,10 @@ class Character extends Sprite2D {
 	constructor(params) {
 		super(params);
 
-		this.jqEl.addClass("character");
+		this.jqEl.addClass("character")
+			.on('click', () => {
+				GAME.player.talkTo(this.id);
+			});
 
 		// Undo world 3D-transform so sprite looks 2D:
 		this.el
@@ -207,6 +210,12 @@ class Hero extends Character {
 	interactWith(target) {
 		console.log(target);
 		// switch(target)
+	}
+
+
+	talkTo(targetId) {
+		// HOW TO DECIDE WHO SPEAKS FIRST?
+		GAME.ui.showSpeech('npc');
 	}
 
 	/**

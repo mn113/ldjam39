@@ -38,8 +38,6 @@ class Sprite2D extends BaseObj {
 			.attr("id", this.id)
 			.addClass(this.classNames);
 
-
-
 		return this;
 	}
 }
