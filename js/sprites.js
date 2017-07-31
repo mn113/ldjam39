@@ -3,6 +3,7 @@
 
 var GAME = GAME || {};
 
+GAME.sprites = [];
 
 /**
 * Generic class for all 2D sprites (player, npcs, doors, scenery, items...)
@@ -38,6 +39,20 @@ class Sprite2D extends BaseObj {
 			.attr("id", this.id)
 			.addClass(this.classNames);
 
+		// Store globally so all sprites are grouped together:
+		GAME.sprites.push(this);
+
+		return this;
+	}
+
+	/**
+	* face() - make the sprite face a certain direction
+	* @param {int} angle
+	*/
+	face(angle) {
+		this.el
+			.rotationZ(angle)
+			.update();
 		return this;
 	}
 }

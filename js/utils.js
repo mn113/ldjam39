@@ -60,7 +60,11 @@ GAME.utils = {
 		}
 		// Keep player facing the camera and correctly layered:
 		// TODO: replicate for all sprite2d's
-		GAME.player.face(360 - GAME.worldRotateZ);
+		for (var sprite of GAME.sprites) {
+			//console.log(sprite);
+			sprite.face(360 - GAME.worldRotateZ);
+		}
+		//GAME.player.face(360 - GAME.worldRotateZ);
 		GAME.utils.updateZIndexes();
 
 		// Scroll bg:

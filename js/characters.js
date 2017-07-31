@@ -3,7 +3,6 @@
 
 var GAME = GAME || {};
 
-
 /**
 * Class for a 2D sprite character - a simple <div> with background:
 */
@@ -29,7 +28,7 @@ class Character extends Sprite2D {
 			.transformString('scale translate rz rx')
 			.scale(0.7)		// TODO: use 1:1 scale sprite?
 			//.z(this.z * 10)	// 20px per unit
-			.move(10,0,20)	// correcting registration?
+			.move(-5,10,10)	// correcting registration?
 			.rotationZ(-45)
 			.rotationX(-90)
 			.update();
@@ -127,17 +126,6 @@ class Character extends Sprite2D {
 		}
 
 
-		return this;
-	}
-
-	/**
-	* face() - make the character face a certain direction
-	* @param {int} angle
-	*/
-	face(angle) {
-		this.el
-			.rotationZ(angle)
-			.update();
 		return this;
 	}
 
@@ -395,7 +383,8 @@ class Hero extends Character {
 	respawn(roomId = 0, spawnPt, flash = true) {
 		this.disappear();
 		// Clear any classes:
-		this.jqEl.removeClass();
+		this.jqEl.removeClass()
+				.addClass('character');
 
 		// Transport to correct room and square:
 		this.jqEl.appendTo($("#room"+roomId));
