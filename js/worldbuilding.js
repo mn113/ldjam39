@@ -118,7 +118,7 @@ class Box extends BaseObj {
 			'.newcube'
 		).move(this.dx/2, this.dy/2, this.dz/2)
 		.rotationX(90)	// top on top
-		.rotationZ(this.rotationZ) // front on the intended side
+		.rotationY(this.rotationZ) // front on the intended side
 		.update()
 		.bind('click', function(e) {
 			console.log(e.target.classList[0]);	// for debugging
@@ -197,6 +197,85 @@ class Exit extends Box {
 		console.warn("Entering room", this.roomId, "at", this.spawnPoint);
 		GAME.player.respawn(this.roomId, this.spawnPoint);
 	}
+}
+
+
+
+/**
+* An invisible 1x1x1 box with a door sprite on its front side:
+*/
+class Door extends Box {
+	/**
+	* @param {str} id
+	* @param {str} name
+	* @param {Object} point3d {x,y,z} in em
+	* @param {int} rotationZ
+	* @param {str} classNames
+	* @param {int} pairId
+	* @param {Object} spawnPt {x,y,z} in em
+	*/
+	constructor(params) {
+		super(params);
+
+		this.pairId = params.pairId;	// e.g. 0
+		this.spawnPt = params.spawnPt;
+
+		// Apply rotationZ to Y axis:
+		//this.el.rotate(0,this.rotationZ,0).update();
+
+		// Style one side:
+		this.jqEl.addClass('door');
+		this.jqFront = this.jqEl.children('.front');
+
+		// Make functional:
+		this.jqEl.on('click', function() {
+			// Proximity test:
+			if (GAME.utils.gridProximity(this, GAME.player) < 50) {
+				// Animate:
+				this.passThrough();
+			}
+			else {
+				// Walk there, then enter:
+				GAME.player.walkTo(GAME.utils.convertEmToPixels(this.spawnPt), () => {	// wants pixel input
+					this.passThrough();
+				});
+			}
+		}.bind(this));
+
+		return this;
+	}
+
+	openClose() {
+		this.jqFront.addClass('open');
+		setTimeout(() => { this.jqFront.removeClass('open'); }, 1000);
+	}
+
+	// Takes you immediately in one door and out another one
+	// FIXME: may need to adjust world rotation?
+	passThrough() {
+		// Animate first door:
+		this.openClose();
+		GAME.player.disappear();
+		// find the corresponding door and respawn outside it
+		var pair = GAME.rooms[GAME.currentRoom].contents.doors[this.pairId];
+		var destDoor = pair.filter(door => {
+			// Choose not this door, but the other one:
+			return door.id !== this.id;
+		})[0];
+		if (destDoor) {
+			// Delay, then show passing through:
+			setTimeout(() => {
+				destDoor.openClose();
+				GAME.player.respawn(GAME.currentRoom, destDoor.spawnPt, false);
+			}, 500);
+		}
+	}
+
+	// Takes you inside somewhere
+	enter() {
+
+	}
+
 }
 
 

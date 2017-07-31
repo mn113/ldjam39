@@ -242,18 +242,6 @@
 #player figure.percent50:after { width: 50%; background: yellow; }
 #player figure.percent75:after { width: 75%; background: lawngreen; }
 
-.door {
-	background: url(../img/sprites/spritesheet.png);
-	width: 14px;
-	height: 16px;
-	cursor: pointer;
-}
-.doorGreen 		{ background-position: -184px -191px; }
-.doorGreen.open { background-position: -201px -191px; }
-.doorRed 		{ background-position: -184px -207px; }
-.doorRed.open 	{ background-position: -201px -207px; }
-.doorBrown 		{ background-position: -184px -223px; }
-.doorBrown.open { background-position: -201px -223px; }
 
 #npcmale1 { background-position: -160px -125px; }
 #npcmale2 { background-position: -180px -125px; }

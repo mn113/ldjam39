@@ -187,3 +187,20 @@ body {
 	transform: translateZ(0.8em) rotateX(-90deg) rotateY(270deg) rotateX(-30deg);
 	border-bottom-color: lightseagreen;
 }
+
+
+
+.door, .door > * {
+	background: none;
+	border: none;
+}
+.door > .front {
+	background-image: url(../img/sprites/spritesheet.png);
+	cursor: pointer;
+}
+.doorGreen 		{ background-position: -180px -150px; }
+.doorGreen.open { background-position: -200px -150px; }
+.doorRed 		{ background-position: -180px -170px; }
+.doorRed.open 	{ background-position: -200px -170px; }
+.doorBrown 		{ background-position: -180px -190px; }
+.doorBrown.open { background-position: -200px -190px; }

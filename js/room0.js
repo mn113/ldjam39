@@ -295,19 +295,25 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			new Door({
 				id: 'door001',
 				pairId: 0,	// matches outer key
+				dimensions: [1,1,1],
 				point3d: {x:8, y:1},
-				rotationZ: 0,
-				classNames: 'doorGreen',
-				spawnPt: {x:8, y:2}
-			}).el.move(0,3,0).update(),
+				spawnPt: {x:8, y:2},
+				rotationZ: 180,
+				skins: {
+					front: 'doorGreen'
+				}
+			}),
 			new Door({
 				id: 'door002',
 				pairId: 0,
+				dimensions: [1,1,1],
 				point3d: {x:9, y:1},
+				spawnPt: {x:10, y:1},
 				rotationZ: 90,
-				classNames: 'doorGreen',
-				spawnPt: {x:10, y:1}
-			}).el.move(3,-5,0).update()
+				skins: {
+					front: 'doorGreen'
+				}
+			})
 		]
 	};
 
