@@ -47,18 +47,18 @@ ul#inventory {
 	margin-top: 7px;
 }
 #inventory li {
-	margin-right: 3px;
-}
-#inventory li img {
-	height: 25px;
-	width: 25px;
-	transform-origin: top center;
-	transition: 0.3s height, 0.3s width;
+	height: 80px;
+	width: 80px;
+	border: 1px solid #444;
 	cursor: pointer;
+	transform-origin: top right;
+	transform: scale(0.3);
+	margin-left: -50px;
+	transition: 0.3s transform, 0.3s margin-left;
 }
-#inventory li:hover img {
-	height: 150px;
-	width: 150px;
+#inventory:hover li {
+	transform: scale(1);
+	margin-left: 0;
 }
 #count {
 	display: flex;
@@ -126,3 +126,19 @@ blockquote:after {content:"\201D"; right:0; bottom:0;}
 .avatar.npc-female2 { background-image: url(../img/avatars/npcfem2.jpg); }
 .avatar.npc-mother { background-image: url(../img/avatars/npcmother.jpg); }
 .avatar.npc-father { background-image: url(../img/avatars/npcfather.jpg); }
+
+/* INVENTORY */
+#inventory li {
+	background-image: url(../img/ui/ui.jpg);
+}
+#inventory .creditcard { background-position: 0 0; }
+#inventory .rock	{ background-position: -80px 0; }
+#inventory .lighter { background-position: -160px 0; }
+#inventory .paper	{ background-position: -240px 0; }
+#inventory .condom	{ background-position: -320px 0; }
+#inventory .cigarettes { background-position: 0 -80px; }
+#inventory .hotdog	{ background-position: -80px -80px; }
+#inventory .donut1	{ background-position: -160px -80px; }
+#inventory .donut2	{ background-position: -240px -80px; }
+#inventory .donut3 	{ background-position: -320px -80px; }
+#inventory .lolly 	{ background-position: 0 -160px; }

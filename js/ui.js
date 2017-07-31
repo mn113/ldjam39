@@ -8,6 +8,7 @@ GAME.ui = {
 	updateBar() {
 		this.updateDeathCount();
 		this.updatePlacename();
+		this.updateInventory();
 	},
 
 	// Show the current death count in blocks of 5 and singles, in the UI bar:
@@ -35,7 +36,11 @@ GAME.ui = {
 
 	// Keep the inventory items up-to-date, in the UI bar:
 	updateInventory() {
-		//TODO
+		var $inventory = $("#inventory");
+		$inventory.html("");
+		for (var itemId of GAME.player.inventory) {
+			$inventory.append('<li class="'+itemId+'"></li>');
+		}
 	},
 
 	// Show an overlay with an image, heading and text:

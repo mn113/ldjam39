@@ -31,6 +31,9 @@ class Sprite2D extends BaseObj {
 				console.log(e.target.classList[0]);	// for debugging
 			}, false);
 
+		// Append to world:
+		GAME.rooms[GAME.currentRoom].stage.appendChild(this.el);
+
 		// Position in world:
 		this.placeAt(this.getPoint3d());
 
@@ -62,16 +65,31 @@ class GroundItem extends Sprite2D {
 	/**
 	* Generic class for all 2D sprites (player, npcs, doors, scenery, items...)
 	* @param {str} id
-	* @param {str} name
 	* @param {Object} point3d {x,y,z} in em
 	* @param {int} rotationZ
 	* @param {str} classNames
+	* @param {str} onclick
 	*/
 	constructor(params) {
 		super(params);
 
+		this.jqEl.addClass('ground');
+
+		// Attach one or the other behaviour:
+		if (params.onclick === 'pickUp') {
+			this.jqEl.on('click', this.pickUp.bind(this));
+		}
+		else if (params.onclick === 'interactWith') {
+			this.jqEl.on('click', () => { GAME.player.interactWith(this.id).bind(this); });
+		}
+
 		return this;
 	}
 
-
+	pickUp() {
+		console.log(this);
+		this.jqEl.remove();
+		GAME.player.inventory.push(this.id);
+		GAME.ui.updateInventory();
+	}
 }

@@ -1,4 +1,4 @@
-/* global $, Box, Exit, Sprite3D, Door */
+/* global $, Box, Exit, Sprite3D, Door, GroundItem */
 "use strict";
 
 var GAME = GAME || {};
@@ -182,7 +182,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 		new Box({
 			dimensions: [2, 2, 2],
 			point3d: {x:8, y:0},
-			classNames: 'hypercube',
+			classNames: 'redbrick',
 			skins: {
 				top: 'eavesRoof'
 			}
@@ -319,7 +319,8 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 
 	g.vending = new Box({
 		dimensions: [0.6, 0.6, 1],
-		point3d: {x:6, y:6},
+		point3d: {x:1, y:12},
+		rotationZ: 180,
 		classNames: 'vendingmachine'
 	});
 	g.vending.jqEl.on('click', '.front', () => {
@@ -328,12 +329,20 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			GAME.player.interactWith('vendingmachine');
 		}
 		else {
-			// Walk there, then enter:
-			GAME.player.walkTo(GAME.utils.convertEmToPixels({x:6,y:5}), () => {	// wants pixel input
+			// Walk there, then act:
+			GAME.player.walkTo(GAME.utils.convertEmToPixels({x:1,y:12.75}), () => {	// wants pixel input
 				GAME.player.interactWith('vendingmachine');
 			});
 		}
 	});
+
+	g.grounditems = [
+		new GroundItem({
+			id: 'rock',
+			point3d: {x:9, y:9},
+			onclick: 'pickUp'
+		})
+	];
 
 	// Revealing module pattern
 	return g;

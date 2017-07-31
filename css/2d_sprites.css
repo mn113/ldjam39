@@ -242,8 +242,15 @@
 #player figure.percent50:after { width: 50%; background: yellow; }
 #player figure.percent75:after { width: 75%; background: lawngreen; }
 
-
 #npcmale1 { background-position: -160px -125px; }
 #npcmale2 { background-position: -180px -125px; }
 #npcmale3 { background-position: -200px -125px; }
 #npcmale4 { background-position: -220px -125px; }
+
+#rock {
+	width: 10px;
+	height: 12px;
+	background-image: url(../img/sprites/spritesheet.png);
+	background-position: -180px -226px;
+	cursor: pointer;
+}

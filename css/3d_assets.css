@@ -192,7 +192,7 @@ body {
 
 .door, .door > * {
 	background: none;
-	border: none;
+	box-shadow: none;
 }
 .door > .front {
 	background-image: url(../img/sprites/spritesheet.png);

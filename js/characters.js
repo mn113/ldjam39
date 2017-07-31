@@ -189,6 +189,7 @@ class Hero extends Character {
 		this.head = $("<div>").addClass("head");
 		this.jqEl.append(this.head);
 		this.deaths = 0;
+		this.inventory = ['lighter','lolly','donut3'];
 	}
 
 	/**
