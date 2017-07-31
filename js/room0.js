@@ -311,6 +311,24 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 		]
 	};
 
+	g.vending = new Box({
+		dimensions: [0.6, 0.6, 1],
+		point3d: {x:6, y:6},
+		classNames: 'vendingmachine'
+	});
+	g.vending.jqEl.on('click', '.front', () => {
+		// Proximity test:
+		if (GAME.utils.gridProximity(g.vending, GAME.player) < 50) {
+			GAME.player.interactWith('vendingmachine');
+		}
+		else {
+			// Walk there, then enter:
+			GAME.player.walkTo(GAME.utils.convertEmToPixels({x:6,y:5}), () => {	// wants pixel input
+				GAME.player.interactWith('vendingmachine');
+			});
+		}
+	});
+
 	// Revealing module pattern
 	return g;
 

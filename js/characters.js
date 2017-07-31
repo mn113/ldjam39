@@ -197,7 +197,13 @@ class Hero extends Character {
 	*/
 	interactWith(target) {
 		console.log(target);
-		// switch(target)
+		switch(target) {
+			case 'vendingmachine':
+				// Allow 2 times
+				// Fully animate on third time
+				this.die('crushed');
+				break;
+		}
 	}
 
 

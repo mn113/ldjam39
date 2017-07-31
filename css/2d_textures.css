@@ -111,3 +111,11 @@
 	background: linear-gradient(rgba(0,0,0, 0.75), rgba(0,0,0, 0.75))
 				url(../img/floor/grass.jpg);
 }
+.vendingmachine {
+	background: black;
+}
+.vendingmachine.front {
+	background: url(../img/walls/tiles.png) -384px 0;
+	image-rendering: pixelated;
+	cursor: pointer;
+}
