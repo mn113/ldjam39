@@ -59,7 +59,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			dimensions: [1, 1, GAME.currentBaseHeight],
 			point3d: {x:-1, y:7, z:0},
 			direction: 'west',
-			destination: {room:1, exit:2}
+			destination: {room:2, exit:2}
 		})
 	};
 
@@ -208,25 +208,26 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			point3d: {x:6, y:8},
 		})
 	];
+	/*
 	g._flats = [
 		new Box({
 			dimensions: [1, 1, 0.2],
-			point3d: {x:5, y:4},
+			point3d: {x:4, y:3},
 		}),
 		new Box({
 			dimensions: [1, 1, 0.2],
-			point3d: {x:8, y:4},
+			point3d: {x:9, y:3},
 		}),
 		new Box({
 			dimensions: [1, 1, 0.2],
-			point3d: {x:5, y:9},
+			point3d: {x:4, y:10},
 		}),
 		new Box({
 			dimensions: [1, 1, 0.2],
-			point3d: {x:8, y:9},
+			point3d: {x:9, y:10},
 		})
 	];
-
+	*/
 	GAME.currentBoxColour = "grass";
 	g._grasses = [
 		new Box({
@@ -330,7 +331,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	g.grounditems = [
 		new GroundItem({
 			id: 'rock',
-			point3d: {x:9, y:9},
+			point3d: {x:12, y:0, z:0.6},
 			onclick: 'pickUp'
 		})
 	];

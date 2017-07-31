@@ -76,15 +76,19 @@ GAME.utils = {
 
 	// Function to pan the room to keep the player roughly central on the screen
 	centrePlayer: function() {	// TODO: use while loops to make it smoother
-		var $currentRoom = $(".room");
+		var $currentRoom = $("#world");
 		var $player = GAME.player.jqEl;
+		var quarterW = window.innerWidth / 4,
+			quarterH = window.innerHeight / 4;
 
-		if ($player.offset().left - window.innerWidth / 2 > 150) {
-			$currentRoom.css({"margin-left": "-=150px"});
+		// x-adjust:
+		if ($player.offset().left > 3 * quarterW) {
+			$currentRoom.css({"margin-left": "-="+quarterW+"px"});
 		}
-		else if ($player.offset().left - window.innerWidth / 2 < -150) {
-			$currentRoom.css({"margin-left": "+=150px"});
+		else if ($player.offset().left < quarterW) {
+			$currentRoom.css({"margin-left": "+="+quarterW+"px"});
 		}
+		// y-adjust:
 		if ($player.offset().top - window.innerHeight / 2 > 150) {
 			$currentRoom.css({"margin-top": "-=150px"});
 		}

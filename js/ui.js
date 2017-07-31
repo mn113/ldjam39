@@ -65,7 +65,7 @@ GAME.ui = {
 	// Respawning triggers a player speech
 	showSpeech: function(character, lineId = 0) {
 		if (character.startsWith('npc')) character = 'npc';	// MERGE ALL TO ONE SET OF LINES
-		
+
 		// Take lines one by one from the top by default:
 		var line = GAME.dialogue['act'+GAME.currentAct][character].shift();
 		//delete GAME.dialogue['act'+GAME.currentAct][character].shift();	// sets undefined
@@ -97,6 +97,7 @@ GAME.ui = {
 			$("#ui")
 				.append($("<div>")
 					.addClass("dialog")
+					.data("use-item", objectName)
 					.append($("<div>")
 						.addClass("itempic "+objectName)
 					)
@@ -108,7 +109,7 @@ GAME.ui = {
 							.append($("<a>")
 								.html("Yes")
 								.on('click', function() {
-									var useItem = $(this).parent().data("use-item");
+									var useItem = $(this).parents(".dialog").data("use-item");
 									// Remove parent container, clearing UI:
 									$(this).parents(".dialog").remove();
 									GAME.player.useItem(useItem);

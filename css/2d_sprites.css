@@ -26,7 +26,7 @@
 	cursor: pointer;
 }
 #player {
-	border-bottom: 2px solid black;
+	xborder-bottom: 2px solid black;
 	background-position: -20px 0;
 	pointer-events: none;
 }

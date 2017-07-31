@@ -6,12 +6,12 @@
 
 /* FLOORPLANS */
 .floor_room0 > div, .top.floor_room0 {
-	background: url(../img/room0_v2.png) no-repeat !important;
+	background: url(../img/floor/room0_v3.png) no-repeat !important;
 	background-size: 15em 15em !important;
 }
 
 .floor_room1 > div, .top.floor_room1 {
-	background: url(../img/room1_v1.png) 100% 0 no-repeat !important;
+	background: url(../img/floor/room1_v1.png) 100% 0 no-repeat !important;
 	background-size: 15em 15em !important;
 }
 
@@ -111,6 +111,19 @@
 	background: linear-gradient(rgba(0,0,0, 0.75), rgba(0,0,0, 0.75))
 				url(../img/floor/grass.jpg);
 }
+
+.sand {
+	xbackground: khaki;
+}
+.top.sand,
+.bottom.sand {background: khaki;}
+.front.sand,
+.back.sand {background: darken(khaki, 10%);}
+.left.sand,
+.right.sand {background: darken(khaki, 20%);}
+
+
+/* SKINNED PROPS */
 .vendingmachine {
 	background: black;
 }
