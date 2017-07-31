@@ -1,4 +1,4 @@
-/* global $, Box, Exit, Sprite3D */
+/* global $, Box, Exit, Sprite3D, Door */
 "use strict";
 
 var GAME = GAME || {};
@@ -64,7 +64,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	};
 
 	GAME.currentBoxColour = 'blue';
-	g.houses = [
+	g._houses = [
 		new Box({
 			dimensions: [1,1,1],
 			point3d: {x:1, y:11}
@@ -92,7 +92,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	];
 
 	GAME.currentBoxColour = 'red';
-	g.houses2 = [
+	g._houses2 = [
 		new Box({
 			dimensions: [1,1,1],
 			point3d: {x:3, y:1}
@@ -112,7 +112,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	];
 
 	GAME.currentBoxColour = 'grey';
-	g.cornerhouses = [
+	g._cornerhouses = [
 		new Box({
 			dimensions: [1,1,1],
 			point3d: {x:12, y:11}
@@ -132,7 +132,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	];
 
 	GAME.currentBoxColour = 'redbrick';
-	g.redbrickhouses = [
+	g._redbrickhouses = [
 		new Box({
 			dimensions: [2,2,2],
 			point3d: {x:8, y:12},
@@ -156,7 +156,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	];
 
 	GAME.currentBoxColour = 'house';
-	g.doublehouses = [
+	g._doublehouses = [
 		new Box({
 			dimensions: [2,2,2],
 			point3d: {x:12, y:5},
@@ -168,13 +168,21 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			dimensions: [2,2,2],
 			point3d: {x:1, y:8},
 			skins: {
-				top: 'grey'
+				top: 'grass'
 			}
 		}),
 		new Box({
 			dimensions: [2,2,2],
 			point3d: {x:1, y:1},
 			classNames: 'grey',
+			skins: {
+				top: 'eavesRoof'
+			}
+		}),
+		new Box({
+			dimensions: [2, 2, 2],
+			point3d: {x:8, y:0},
+			classNames: 'hypercube',
 			skins: {
 				top: 'eavesRoof'
 			}
@@ -185,7 +193,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 		.append($("<div>").addClass("roof2"));
 
 	GAME.currentBoxColour = "grey";
-	g.fountainborders = [
+	g._fountainborders = [
 		new Box({
 			dimensions: [0.2, 2, 0.2],
 			point3d: {x:5.8, y:6},
@@ -203,7 +211,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			point3d: {x:6, y:8},
 		})
 	];
-	g.flats = [
+	g._flats = [
 		new Box({
 			dimensions: [1, 1, 0.2],
 			point3d: {x:5, y:4},
@@ -219,15 +227,11 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 		new Box({
 			dimensions: [1, 1, 0.2],
 			point3d: {x:8, y:9},
-		}),
-		new Box({
-			dimensions: [2, 2, 2],
-			point3d: {x:8, y:0},
 		})
 	];
 
 	GAME.currentBoxColour = "grass";
-	g.grasses = [
+	g._grasses = [
 		new Box({
 			dimensions: [1, 1, 0.2],
 			point3d: {x:14, y:3},
@@ -255,7 +259,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	];
 
 	GAME.currentBoxColour = 'greybrick';
-	g.church = [
+	g._church = [
 		new Box({
 			dimensions: [3, 3, 2],
 			point3d: {x:12, y:8},
@@ -285,6 +289,27 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 		.append($("<div>").addClass("side right"))
 		.append($("<div>").addClass("side front"))
 		.append($("<div>").addClass("side back"));
+
+	g.doors = {	// define them in pairs
+		0: [
+			new Door({
+				id: 'door001',
+				pairId: 0,	// matches outer key
+				point3d: {x:8, y:1},
+				rotationZ: 0,
+				classNames: 'doorGreen',
+				spawnPt: {x:8, y:2}
+			}).el.move(0,3,0).update(),
+			new Door({
+				id: 'door002',
+				pairId: 0,
+				point3d: {x:9, y:1},
+				rotationZ: 90,
+				classNames: 'doorGreen',
+				spawnPt: {x:10, y:1}
+			}).el.move(3,-5,0).update()
+		]
+	};
 
 	// Revealing module pattern
 	return g;

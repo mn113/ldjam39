@@ -12,17 +12,18 @@ GAME.ui = {
 
 	// Show the current death count in blocks of 5 and singles, in the UI bar:
 	updateDeathCount() {
-		var $count = $("#count"),
-			d = GAME.player.deaths,
+		var	d = GAME.player.deaths,
 			fives = Math.floor(d/5),
-			ones = d % 5;
-		$count.html("");	// empty it first
+			ones = d % 5,
+			$counter = $("#count");
+
+		$counter.html("");	// empty it first
 		while (fives > 0) {
-			$count.append($("<i>").addClass("fiver"));
+			$counter.append($("<i>").addClass("fiver"));
 			fives--;
 		}
 		while (ones > 0) {
-			$count.append($("<i>").addClass("single"));
+			$counter.append($("<i>").addClass("single"));
 			ones--;
 		}
 	},

@@ -1,23 +1,7 @@
-/* global $, Sprite3D, BaseObj */
+/* global $, Sprite2D */
 "use strict";
 
 var GAME = GAME || {};
-
-
-/**
-* Generic class for all 2D sprites (player, npcs, doors, scenery, items...)
-*/
-class Sprite2D extends BaseObj {
-	constructor(params) {
-		super(params);
-		// Wrapper for document.createElement('div')
-		// Also gives element extra 3D functionality:
-		this.el = Sprite3D.create();
-		this.el.setAttribute("id", params.name);
-
-		return this;
-	}
-}
 
 
 /**
@@ -34,10 +18,7 @@ class Character extends Sprite2D {
 	constructor(params) {
 		super(params);
 
-		this.el.addClass("character");
-
-		// Also attach jQuery wrapped reference:
-		this.jqEl = $(this.el);
+		this.jqEl.addClass("character");
 
 		// Undo world 3D-transform so sprite looks 2D:
 		this.el
@@ -50,10 +31,9 @@ class Character extends Sprite2D {
 			.rotationX(-90)
 			.update();
 
-		this.reportLoc();
 		// Append to world:
 		GAME.rooms[GAME.currentRoom].stage.appendChild(this.el);
-		this.placeAt(this.getPoint3d());
+		//this.placeAt(this.getPoint3d());
 		this.reportLoc();
 
 		return this;
@@ -403,18 +383,25 @@ class Hero extends Character {
 	* @param {int} roomId
 	* @param {Object} spawnPt {x,y,z}
 	*/
-	respawn(roomId = 0, spawnPt) {
+	respawn(roomId = 0, spawnPt, flash = true) {
 		this.disappear();
 		// Clear any classes:
 		this.jqEl.removeClass();
+
 		// Transport to correct room and square:
 		this.jqEl.appendTo($("#room"+roomId));
 		this.placeAt(spawnPt || GAME.rooms[roomId].respawn);
 		this.appear();
-		// Flash:
-		this.runCSSAnimation('flashing', 3000, function() {
+
+		// Flash?:
+		if (flash) {
+			this.runCSSAnimation('flashing', 3000, function() {
+				$("body").removeClass("inputFrozen");
+			});
+		}
+		else {
 			$("body").removeClass("inputFrozen");
-		});
+		}
 	}
 
 	/**

@@ -7,10 +7,11 @@ GAME.utils = {
 	loadPlayer: function() {
 		// She's not the hero we need, she's the hero we DESERVE!
 		GAME.player = new Hero({
-			name: 'player',
+			id: 'player',
 			room: GAME.currentRoom,
 			point3d: GAME.rooms[0].respawn
 		});
+		GAME.utils.centrePlayer();
 		GAME.ui.updateBar();
 	},
 
@@ -70,7 +71,7 @@ GAME.utils = {
 	},
 
 	// Function to pan the room to keep the player roughly central on the screen
-	centreMan: function() {	// TODO: use while loops to make it smoother
+	centrePlayer: function() {	// TODO: use while loops to make it smoother
 		var $currentRoom = $(".room");
 		var $player = GAME.player.jqEl;
 
@@ -112,6 +113,22 @@ GAME.utils = {
 				transform: 'rotate('+rotation+')'
 			});
 		$("#room"+GAME.currentRoom).append($div);
+	},
+
+	gridProximity: function(obj1, obj2) {
+		var deltaX = obj1.x - obj2.x;
+		var deltaY = obj1.y - obj2.y;
+		var dist = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+		console.log(deltaX, deltaY, dist, "pixels (?)");
+		return dist;
+	},
+
+	convertEmToPixels: function(point3d) {
+		return {
+			x: point3d.x * GAME.tileSize,
+			y: point3d.y * GAME.tileSize,
+			z: point3d.z * GAME.tileSize
+		};
 	}
 
 };

@@ -45,8 +45,8 @@ GAME.utils.bindEventsToCurrentRoom = function() {
 	.on('wheel', function(e) {
 		var deltaY = e.deltaY || e.originalEvent.deltaY || 0;
 		console.log("wheel", deltaY);
-		if (deltaY > 0 && GAME.worldScale < 1.7) GAME.worldScale += 0.1;
-		if (deltaY < 0 && GAME.worldScale > 0.3) GAME.worldScale -= 0.1;
+		if (deltaY < 0 && GAME.worldScale < 1.7) GAME.worldScale += 0.1;
+		if (deltaY > 0 && GAME.worldScale > 0.3) GAME.worldScale -= 0.1;
 		$("#world").css({
 			transform: "scale("+GAME.worldScale+")"
 		});
@@ -73,8 +73,8 @@ GAME.utils.bindEventsToCurrentRoom = function() {
 		console.log(GAME.player.el.z());
 		var deltaZ = Math.abs(targetZ - GAME.player.el.z()) - 20;	// TODO: fix z-fudge
 		console.log("dZ =", deltaZ);
-		if (deltaZ > 0.2 * GAME.tileSize)
-			return;
+		//if (deltaZ > 0.2 * GAME.tileSize)
+			//return;
 
 		// Move debugging pixel:
 		$pixel
@@ -137,6 +137,6 @@ GAME.utils.bindEventsToCurrentRoom = function() {
 		});
 
 		// Centre world around player AFTER movement:
-		setTimeout(GAME.utils.centreMan, 500);
+		setTimeout(GAME.utils.centrePlayer, 500);
 	});
 };

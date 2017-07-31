@@ -9,20 +9,6 @@ GAME.currentBoxColour = 'hypercube';	// initial box skin
 GAME.currentBaseHeight = 0;				// initial z
 GAME.currentRoom = 0;	// FIXME defined later
 
-// Sprite3D init:
-/*
-GAME.stage = Sprite3D.stage(document.getElementById("room"+GAME.currentRoom));
-GAME.stage.perspective(1000000)
-	.css("transform-style","preserve-3d")
-	.origin(100,0,0)
-	.transformString('rx rz translate scale')
-	.rotationX(60)
-	.rotationZ(45)
-	.move(0,0,1)
-	.scale(2.5)
-	.update();
-*/
-
 
 /**
 * Basic positioning methods for objects with jQuery & Sprite3D elements:
@@ -31,22 +17,29 @@ class BaseObj {
 	/**
 	* constructor() - just set params
 	* @param {str} id
-	* @param {str} name
 	* @param {Object} point3d {x,y,z} in em
+	* @param {int} rotationZ
 	*/
 	constructor(params) {
-		if (typeof params.point3d.z === 'undefined') params.point3d.z = GAME.currentBaseHeight;
 		if (typeof params.id === 'undefined') params.id = "";
+		if (typeof params.point3d.z === 'undefined') params.point3d.z = GAME.currentBaseHeight;
+		if (typeof params.rotationZ === 'undefined') params.rotationZ = 0;
 		this.id = params.id;
-		this.name = params.name;
+		//this.name = params.name;
 		this.point3d = params.point3d;
 		this.x = params.point3d.x;
 		this.y = params.point3d.y;
 		this.z = params.point3d.z;
+		this.rotationZ = params.rotationZ;
 
 		return this;
 	}
 
+	/**
+	* setXYZ() - set object's internal positional properties in pixels
+	* @param {Object} point3d
+	* @param {Boolean} emUnits
+	*/
 	setXYZ(point3d, emUnits = true) {
 		// Set using pixels internally:
 		this.x = (emUnits) ? point3d.x * GAME.tileSize : point3d.x;
@@ -100,8 +93,7 @@ class Box extends BaseObj {
 	/**
 	* constructor() - initialise a box
 	* @param {Array} dimensions [dx,dy,dz] in em
-	* @param {int} rotationZ
-	* @param {str} classNames
+	* @param {Array} classNames
 	* @param {Object} skins {faceName: className} object for CSS background images
 	*/
 	constructor(params) {
@@ -111,10 +103,8 @@ class Box extends BaseObj {
 		// if no className, it takes currentBoxColour
 		if (typeof params.skins === 'undefined') params.skins = {};
 		if (typeof params.classNames === 'undefined') params.classNames = GAME.currentBoxColour;
-		if (typeof params.rotationZ === 'undefined') params.rotationZ = 0;
-		this.rotationZ = params.rotationZ;
-		this.skins = params.skins;
 		this.classNames = params.classNames;
+		this.skins = params.skins;
 
 		this.dx = params.dimensions[0] * GAME.tileSize;	// convert dimensions to pixels for internal use
 		this.dy = params.dimensions[1] * GAME.tileSize;
@@ -141,10 +131,9 @@ class Box extends BaseObj {
 		this.jqEl = $(this.el)
 			.attr("id", this.id)
 			.data("z", (this.z * GAME.tileSize) + this.dz);
-		console.log("data-z of", this.jqEl, "is", this.jqEl.data("z"));
+		//console.log("data-z of", this.jqEl, "is", this.jqEl.data("z"));
 
 		// Skinning:
-		//console.log("Skinning", this.skins, this.classNames, GAME.currentBoxColour);
 		for (var side of ['top','bottom','left','right','front','back']) {
 			var skinClassName = this.skins[side];
 			if (typeof skinClassName !== 'undefined') {
