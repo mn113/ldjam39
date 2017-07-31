@@ -209,10 +209,12 @@ class Hero extends Character {
 		}
 	}
 
-
+	/**
+	* talkTo() - make player talk to an npc		// HOW TO DECIDE WHO SPEAKS FIRST?
+	* @param {str} targetId
+	*/
 	talkTo(targetId) {
-		// HOW TO DECIDE WHO SPEAKS FIRST?
-		GAME.ui.showSpeech('npc');
+		GAME.ui.showSpeech(targetId);
 	}
 
 	/**

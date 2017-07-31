@@ -64,6 +64,8 @@ GAME.ui = {
 	// Talking to NPCs triggers an NPC speech
 	// Respawning triggers a player speech
 	showSpeech: function(character, lineId = 0) {
+		if (character.startsWith('npc')) character = 'npc';	// MERGE ALL TO ONE SET OF LINES
+		
 		// Take lines one by one from the top by default:
 		var line = GAME.dialogue['act'+GAME.currentAct][character].shift();
 		//delete GAME.dialogue['act'+GAME.currentAct][character].shift();	// sets undefined

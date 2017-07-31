@@ -133,6 +133,26 @@ GAME.utils = {
 			y: point3d.y * GAME.tileSize,
 			z: point3d.z * GAME.tileSize
 		};
+	},
+
+	buildRooftops: function(roomId) {
+		// Pyramid roofs:
+		$("#room"+roomId+" .pyramid")
+			.append($("<div>").addClass("side left"))
+			.append($("<div>").addClass("side right"))
+			.append($("<div>").addClass("side front"))
+			.append($("<div>").addClass("side back"));
+
+		// Single roofs:
+		$("#room"+roomId+" .simpleRoof")
+			.append($("<div>").addClass("roof"));
+
+		// Eaves roofs:
+		$("#room"+roomId+" .eavesRoof")
+			.append($("<div>").addClass("roof"))
+			.append($("<div>").addClass("roof2"));
+
+		console.log("Roofing completed in room", roomId);
 	}
 
 };

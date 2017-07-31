@@ -188,9 +188,6 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			}
 		})
 	];
-	$(".eavesRoof")
-		.append($("<div>").addClass("roof"))
-		.append($("<div>").addClass("roof2"));
 
 	GAME.currentBoxColour = "grey";
 	g._fountainborders = [
@@ -283,12 +280,6 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			}
 		})
 	];
-	// Pyramid:	// TODO: utility function?
-	$(".pyramid")
-		.append($("<div>").addClass("side left"))
-		.append($("<div>").addClass("side right"))
-		.append($("<div>").addClass("side front"))
-		.append($("<div>").addClass("side back"));
 
 	g.doors = {	// define them in pairs
 		0: [
@@ -348,5 +339,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	return g;
 
 }());
+
+GAME.utils.buildRooftops(GAME.currentRoom);
 
 GAME.rooms[GAME.currentRoom].loaded = true;
