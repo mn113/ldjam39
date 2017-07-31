@@ -197,14 +197,10 @@ body {
 
 .sea {
 	opacity: 0.7;
-	animation: 2s waves infinite alternate;
 }
-@keyframes waves {
-	0% { transform: scaleZ(1); }
-	100% { transform: scaleZ(0.5); }
-}
+
 .sea1 { background-color: steelblue; animation-delay: 0; }
 .sea2 { background-color: dodgerblue; animation-delay: 0.3s; }
 .sea3 { background-color: deepskyblue; animation-delay: 0.5s; }
-.sea4 { background-color: cornflower; animation-delay: 0.7s; }
+.sea4 { background-color: cornflowerblue; animation-delay: 0.7s; }
 .sea5 { background-color: darkturquoise; animation-delay: 1.3s; }

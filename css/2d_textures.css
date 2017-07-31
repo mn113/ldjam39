@@ -112,15 +112,11 @@
 				url(../img/floor/grass.jpg);
 }
 
-.sand {
-	xbackground: khaki;
-}
-.top.sand,
-.bottom.sand {background: khaki;}
+.top.sand {background: palegoldenrod;}
 .front.sand,
-.back.sand {background: darken(khaki, 10%);}
+.back.sand {background: khaki;}
 .left.sand,
-.right.sand {background: darken(khaki, 20%);}
+.right.sand {background: darkkhaki;}
 
 
 /* SKINNED PROPS */

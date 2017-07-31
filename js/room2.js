@@ -125,7 +125,31 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 	});
 
 	// Sea:
-	g.sea = [];
+	GAME.currentBoxColour = 'sea';
+	g.sea = [
+		new Box({
+			dimensions: [1, 15, 1],
+			point3d: {x:0, y:0, z:0.2},
+			classNames: 'sea sea1'
+		}),
+		new Box({
+			dimensions: [1, 15, 1],
+			point3d: {x:1, y:0, z:0.2},
+			classNames: 'sea sea2'
+		}),
+		new Box({
+			dimensions: [1, 15, 1],
+			point3d: {x:2, y:0, z:0.2},
+			classNames: 'sea sea3'
+		}),
+		new Box({
+			dimensions: [1, 15, 1],
+			point3d: {x:3, y:0, z:0.2},
+			classNames: 'sea sea4'
+		}),
+	];
+
+	/* GPU can't handle all this
 	for (var x = 0; x < 15; x++) {
 		for (var y = 0; y < 6; y++) {
 			g.sea.push(new Box({
@@ -135,6 +159,7 @@ GAME.rooms[GAME.currentRoom].contents = (function() {
 			}));
 		}
 	}
+	*/
 
 	// Revealing module pattern
 	return g;

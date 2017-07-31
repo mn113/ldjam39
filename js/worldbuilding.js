@@ -190,7 +190,9 @@ class Exit extends Box {
 		// Load new room:
 		GAME.utils.switchRoom(this.roomId, this.destination.room);
 		// Enter:
-		GAME.rooms[this.destination.room].contents.exits[this.destination.exit].enterFrom();
+		setTimeout(() => {
+			GAME.rooms[this.destination.room].contents.exits[this.destination.exit].enterFrom();
+		}, 1000);
 	}
 
 	enterFrom() {
